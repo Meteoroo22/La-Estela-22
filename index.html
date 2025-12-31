@@ -1729,53 +1729,44 @@
 
         initApp();
 
-        // Gemini AI logic
-        async function consultGemini() {
+async function consultGemini() {
             const input = document.getElementById('aiInput').value;
+            if(!input.trim()) return;
+            
             const resultDiv = document.getElementById('aiResult');
             const loadingDiv = document.getElementById('aiLoading');
-            if (!input.trim()) return;
-
-            loadingDiv.style.display = 'block';
+            
+            loadingDiv.style.display='block';
             resultDiv.classList.remove('visible');
             resultDiv.innerHTML = '';
-            
-            const apiKey = ""; 
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
 
-            const prompt = `
-                Actúa como un experto asesor de ventas de la boutique multimarca "La Estela".
-                Tu tono debe ser poético, sofisticado, evocador y muy elegante.
-                Analiza la siguiente descripción del usuario y recomienda UNO de los perfumes de nuestro catálogo:
-                1. Afternoon Swim (Cítrico - Louis Vuitton)
-                2. Althaïr (Vainilla Cálida - Parfums de Marly)
-                3. Naxos (Aromático Dulce - Xerjoff)
-                4. Delina (Floral - Parfums de Marly)
-                5. Angels' Share (Gourmand Licoroso - Kilian)
-                6. Tuxedo (Especiado Ambarado - Yves Saint Laurent)
-                Input: "${input}"
-                Respuesta breve (máx 40 palabras). Empieza con el nombre en negrita.
-            `;
+            setTimeout(() => {
+                loadingDiv.style.display='none';
+                
+                // Logic based on keywords
+                const inputLower = input.toLowerCase();
+                let recommendation = "";
+                
+                if (inputLower.includes('fresco') || inputLower.includes('citrico') || inputLower.includes('mar') || inputLower.includes('verano')) {
+                    recommendation = "<strong>Afternoon Swim</strong> - Una explosión de energía cítrica y frescura oceánica, perfecta para tu estilo vibrante.";
+                } else if (inputLower.includes('dulce') || inputLower.includes('vainilla') || inputLower.includes('calido')) {
+                    recommendation = "<strong>Althaïr</strong> - Una vainilla bourbon majestuosa y cálida que envuelve los sentidos con elegancia.";
+                } else if (inputLower.includes('noche') || inputLower.includes('fiesta') || inputLower.includes('sexy') || inputLower.includes('tabaco')) {
+                    recommendation = "<strong>Naxos</strong> - Un tributo a la opulencia con notas de tabaco y miel, ideal para dejar una huella imborrable.";
+                } else if (inputLower.includes('floral') || inputLower.includes('romantico') || inputLower.includes('mujer') || inputLower.includes('rosa')) {
+                    recommendation = "<strong>Delina</strong> - Un bouquet floral exquisito dominado por la rosa turca, femenino y absolutamente cautivador.";
+                } else {
+                    // Default fallback
+                    recommendation = "<strong>Baccarat Rouge 540</strong> - Una alquimia poética y luminosa. Su estela ambarina y floral se adapta perfectamente a cualquier ocasión especial.";
+                }
 
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-                });
-                const data = await response.json();
-                const text = data.candidates[0].content.parts[0].text;
-                const formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                loadingDiv.style.display = 'none';
-                resultDiv.innerHTML = formattedText;
+                resultDiv.innerHTML = recommendation;
                 resultDiv.classList.add('visible');
-            } catch (error) {
-                console.error('Error:', error);
-                loadingDiv.style.display = 'none';
-                resultDiv.innerHTML = "Intenta de nuevo.";
-                resultDiv.classList.add('visible');
-            }
+            }, 2000);
         }
+
+        // Init
+        initApp();
     </script>
 </body>
 </html>
