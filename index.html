@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Estela | Boutique de Alta Perfumería</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #FAFAFA;
+            --bg-secondary: #F4F1EA;
+            --text-main: #1C1C1C;
+            --text-muted: #666666;
+            --accent-gold: #D4AF37;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+            --drawer-width: 450px;
+            --input-border: #e2e2e2;
+            --input-focus: #1C1C1C;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body.drawer-open, body.modal-open {
+            overflow: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 700;
+        }
+
+        a { text-decoration: none; color: inherit; transition: all 0.3s; }
+        ul { list-style: none; }
+
+        /* --- UI Elements --- */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--text-main);
+            color: #fff;
+            border: 1px solid var(--text-main);
+        }
+
+        .btn-primary:hover {
+            background-color: #333;
+            border-color: #333;
+            color: #fff;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--text-main);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--text-main);
+            color: #fff;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        /* --- Header --- */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            background: rgba(250, 250, 250, 0.95);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            letter-spacing: 1px;
+            font-style: italic;
+            color: var(--text-main);
+        }
+
+        .nav-menu { display: flex; gap: 30px; }
+        .nav-menu a { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); }
+        .nav-menu a:hover { color: var(--accent-gold); }
+
+        .nav-icons { font-size: 1.2rem; display: flex; gap: 20px; color: var(--text-main); align-items: center; }
+        .cart-icon, .user-icon { position: relative; cursor: pointer; }
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-gold);
+            color: white;
+            font-size: 0.7rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .user-status-dot {
+            position: absolute;
+            bottom: 0;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: none;
+        }
+
+        /* --- Hero --- */
+        .hero {
+            height: 90vh;
+            background: url('https://i.pinimg.com/1200x/64/1a/cd/641acdb8a2c08716e2530742e0cf5b94.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 600px;
+            margin-left: 5%;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* --- Products --- */
+        .products { 
+            padding: 80px 0; 
+            background: var(--bg-secondary);
+        }
+
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 3rem; margin-bottom: 10px; color: var(--text-main); }
+        .section-header p { color: var(--text-muted); font-style: italic; }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+        }
+
+        .prod-img-container {
+            height: 350px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .prod-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .add-btn {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            background: var(--text-main);
+            color: white;
+            padding: 15px;
+            border: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: bottom 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover .add-btn { bottom: 0; }
+
+        .prod-info h3 { font-size: 1.1rem; margin-bottom: 5px; color: var(--text-main); font-family: var(--font-body); font-weight: 700;}
+        .prod-category { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 1px; }
+        .prod-price { font-weight: 400; color: #444; font-size: 1rem; }
+
+        /* --- Story --- */
+        .story {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+        }
+
+        .story-img {
+            height: 600px;
+            background: url('https://i.pinimg.com/736x/fe/69/1c/fe691c3509db491378d1841c626ccd47.jpg') center/cover;
+        }
+
+        .story-text {
+            padding: 80px;
+            background: #fff;
+        }
+
+        .story-text h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .story-text h3 { color: var(--accent-gold); font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; font-family: var(--font-body); }
+        .story-text p { color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem; }
+
+        /* --- AI Section --- */
+        .ai-consultant {
+            padding: 100px 0;
+            background: linear-gradient(rgba(28, 28, 28, 0.8), rgba(28, 28, 28, 0.8)), url('https://i.pinimg.com/1200x/07/e0/c1/07e0c11b4c156c6baf00d3c76cde7910.jpg') center/cover fixed;
+            color: white;
+            text-align: center;
+        }
+
+        .ai-consultant h2 { font-size: 3rem; margin-bottom: 20px; color: var(--bg-secondary); }
+        .ai-consultant p { font-size: 1.1rem; max-width: 600px; margin: 0 auto 40px; font-weight: 300; }
+
+        .ai-input-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+        }
+
+        .ai-textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            padding: 15px;
+            margin-bottom: 30px;
+            resize: none;
+            outline: none;
+        }
+
+        .ai-textarea::placeholder { color: rgba(255, 255, 255, 0.6); font-style: italic; }
+
+        .ai-btn {
+            background-color: var(--accent-gold);
+            color: var(--text-main);
+            padding: 15px 40px;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ai-btn:hover { background-color: white; transform: translateY(-2px); }
+
+        .ai-result {
+            margin-top: 30px;
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            line-height: 1.8;
+            font-style: italic;
+            min-height: 50px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease;
+        }
+
+        .ai-result.visible { opacity: 1; transform: translateY(0); }
+        .ai-loading { display: none; margin-top: 20px; }
+        .ai-loading i { animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* --- Policies Section --- */
+        .policies-section {
+            padding: 80px 0;
+            background-color: #fff;
+            border-top: 1px solid #eee;
+        }
+
+        .policies-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .policy-card {
+            text-align: center;
+            padding: 30px;
+            background: var(--bg-color);
+            border-radius: 4px;
+            transition: transform 0.3s;
+            height: 100%;
+        }
+
+        .policy-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .policy-card i {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .policy-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--text-main);
+        }
+
+        .policy-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .policy-list {
+            text-align: left;
+            padding-left: 20px;
+            list-style: disc;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .policy-list li {
+            margin-bottom: 8px;
+        }
+
+        /* --- Newsletter --- */
+        .newsletter {
+            padding: 80px 0;
+            text-align: center;
+            background-color: var(--text-main);
+            color: white;
+        }
+
+        .newsletter h2 { color: var(--accent-gold); margin-bottom: 20px; font-size: 2.5rem; }
+        .newsletter p { margin-bottom: 30px; opacity: 0.8; max-width: 600px; margin-left: auto; margin-right: auto; }
+        
+        .input-group { max-width: 500px; margin: 0 auto; display: flex; }
+        .input-group input { flex: 1; padding: 15px; border: none; outline: none; font-family: var(--font-body); }
+        .input-group button { padding: 15px 30px; background: var(--accent-gold); border: none; color: var(--text-main); font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: background 0.3s; }
+        .input-group button:hover { background: #fff; }
+
+        /* --- Footer --- */
+        footer { background: #111; color: #888; padding: 60px 0 20px; font-size: 0.9rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-bottom: 50px; }
+        .footer-col h4 { color: white; margin-bottom: 20px; letter-spacing: 1px; font-family: var(--font-body); text-transform: uppercase; font-size: 0.9rem; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a:hover { color: var(--accent-gold); }
+        .copyright { text-align: center; border-top: 1px solid #333; padding-top: 20px; font-size: 0.8rem; }
+
+        /* --- CART DRAWER --- */
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(2px);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .cart-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: calc(var(--drawer-width) * -1);
+            width: var(--drawer-width);
+            height: 100%;
+            background: #fff;
+            z-index: 2001;
+            transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        }
+
+        .cart-drawer.open {
+            right: 0;
+        }
+
+        .drawer-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+        }
+
+        .drawer-header h2 {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: var(--font-body);
+        }
+
+        .close-drawer {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #888;
+            transition: color 0.3s;
+        }
+        .close-drawer:hover { color: var(--text-main); }
+
+        /* Free Shipping Bar */
+        .shipping-bar-container {
+            padding: 15px 30px;
+            background: #f9f9f9;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .shipping-msg { font-size: 0.85rem; margin-bottom: 8px; text-align: center; }
+        
+        .progress-track {
+            height: 6px;
+            background: #ddd;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--text-main);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .drawer-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 30px;
+        }
+
+        .cart-item {
+            display: flex;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+            align-items: flex-start;
+        }
+
+        .cart-item-img {
+            width: 80px;
+            height: 100px;
+            object-fit: contain;
+            background: #f4f4f4;
+            margin-right: 15px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .cart-item-price {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Quantity Selector */
+        .qty-selector {
+            display: inline-flex;
+            border: 1px solid #ddd;
+            height: 32px;
+            align-items: center;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 100%;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .qty-btn:hover { background: #f5f5f5; }
+
+        .qty-input {
+            width: 30px;
+            text-align: center;
+            border: none;
+            font-size: 0.9rem;
+            font-family: var(--font-body);
+            -moz-appearance: textfield;
+        }
+        .qty-input::-webkit-outer-spin-button,
+        .qty-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        .cart-item-remove {
+            text-decoration: underline;
+            font-size: 0.75rem;
+            color: #888;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .cart-item-remove:hover { color: #d9534f; }
+
+        .drawer-footer {
+            padding: 25px 30px;
+            border-top: 1px solid #eee;
+            background: #fff;
+        }
+
+        .cart-summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .total-row {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .checkout-note {
+            font-size: 0.8rem;
+            color: #888;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        /* --- AUTH MODAL --- */
+        .modal-base {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 2002;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(3px);
+        }
+
+        .auth-modal-content {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            padding: 40px;
+            border-radius: 4px;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 30px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #888;
+            border-bottom: 2px solid transparent;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .auth-tab.active {
+            color: var(--text-main);
+            border-bottom: 2px solid var(--text-main);
+        }
+
+        /* --- UPDATED CHECKOUT MODAL (WINDOW STYLE) --- */
+        .checkout-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7); /* Dimmed backdrop */
+            z-index: 2002;
+            display: none; 
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Window Container for Checkout */
+        .checkout-window {
+            background: #fff;
+            width: 95%;
+            max-width: 1100px;
+            height: 90vh; /* Not full height */
+            border-radius: 8px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: zoomIn 0.3s ease;
+        }
+
+        .checkout-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            z-index: 10;
+        }
+
+        .checkout-container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto; /* Internal scroll */
+        }
+
+        .checkout-col {
+            flex: 1;
+            padding: 40px;
+            min-width: 300px;
+        }
+
+        .checkout-col.bg-gray {
+            background: #fafafa;
+            border-left: 1px solid #eee;
+        }
+        
+        /* New Aesthetic Inputs */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--input-border);
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+            outline: none;
+            background: white;
+        }
+        
+        .form-control:focus {
+            border-color: var(--input-focus);
+            box-shadow: 0 0 0 1px var(--input-focus);
+        }
+
+        .form-control::placeholder {
+            color: #aaa;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Payment Form Styling */
+        .payment-box {
+            border: 1px solid var(--input-border);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+        
+        .payment-header {
+            background: #f9f9f9;
+            padding: 15px;
+            border-bottom: 1px solid var(--input-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .payment-body {
+            padding: 20px;
+            background: white;
+        }
+
+        .card-icons i {
+            font-size: 1.5rem;
+            margin-left: 8px;
+            color: #555;
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--text-main);
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1500;
+            display: none;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        .cookie-banner p { display: inline-block; margin-right: 20px; font-size: 0.9rem; }
+        .cookie-btn { background-color: var(--accent-gold); color: var(--text-main); border: none; padding: 8px 20px; cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
+
+        /* Toast */
+        #toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 2px; padding: 16px; position: fixed; z-index: 2000; bottom: 30px; right: 30px; font-size: 0.9rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15); opacity: 0; transform: translateY(20px); transition: all 0.5s ease; }
+        #toast.show { visibility: visible; opacity: 1; transform: translateY(0); }
+        #toast i { margin-right: 10px; color: var(--accent-gold); }
+
+        /* Full Screen Overlay for Simulation */
+        .simulation-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 3000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .simulation-overlay h2 { margin-bottom: 10px; }
+        .simulation-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--accent-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .cat-grid { grid-template-columns: 1fr; gap: 10px; }
+            .cat-card { height: 250px; }
+            .story { grid-template-columns: 1fr; }
+            .story-img { height: 300px; }
+            .story-text { padding: 40px 20px; }
+            .hero-content h1 { font-size: 3rem; }
+            /* Checkout Responsive */
+            .checkout-window { height: 100%; border-radius: 0; max-width: 100%; width: 100%; }
+            .checkout-col { padding: 20px; border-left: none; }
+            .checkout-container { flex-direction: column-reverse; }
+            .policies-grid { grid-template-columns: 1fr; gap: 20px; }
+        }
+
+        @media (max-width: 500px) {
+            :root { --drawer-width: 100%; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .form-row { flex-direction: column; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">La Estela</a>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#catalogo">Perfumes</a></li>
+                    <li><a href="#consultant">Sommelier AI</a></li>
+                    <li><a href="#historia">La Casa</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <i class="fa-solid fa-magnifying-glass" style="cursor: pointer;"></i>
+                <div class="user-icon" onclick="openAuthModal()">
+                    <i class="fa-regular fa-user"></i>
+                    <div id="userStatusDot" class="user-status-dot"></div>
+                </div>
+                <div class="cart-icon" onclick="openCartDrawer()">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <p>Selección Exclusiva 2026</p>
+            <h1>Obras Maestras <br>Olfativas</h1>
+            <p>Una curaduría de las fragancias más deseadas del mundo. Descubre tu próximo aroma icónico.</p>
+            <a href="#catalogo" class="btn btn-primary">Descubrir Colección</a>
+        </div>
+    </section>
+
+    <section id="catalogo" class="products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Los Favoritos</h2>
+                <p>Nuestra selección de perfumes de culto</p>
+            </div>
+
+            <div class="product-grid">
+                <!-- Product 1: Afternoon Swim -->
+                <div class="product-card">
+                    <div class="prod-img-container">
+                        <img src="https://fimgs.net/mdimg/perfume-thumbs/375x500.53947.2x.avif" alt="Afternoon Swim">
+                        <button class="add-btn" onclick="addToCart('Afternoon Swim', 280.00, 'https://fimgs.net/mdimg/perfume-thumbs/375x500.53947.2x.avif')">Añadir al Carrito</button>
+                    </div>
+                    <div class="prod-info">
+                        <span class="prod-category">Cítrico / Louis Vuitton</span>
+                        <h3>Afternoon Swim</h3>
+                        <div class="prod-price">$280.00</div>
+                    </div>
+                </div>
+
+                <!-- Product 2: Althaïr -->
+                <div class="product-card">
+                    <div class="prod-img-container">
+                        <img src="https://fimgs.net/mdimg/perfume-thumbs/375x500.84109.2x.avif" alt="Althaïr">
+                        <button class="add-btn" onclick="addToCart('Althaïr', 350.00, 'https://fimgs.net/mdimg/perfume-thumbs/375x500.84109.2x.avif')">Añadir al Carrito</button>
+                    </div>
+                    <div class="prod-info">
+                        <span class="prod-category">Vainilla Cálida / Parfums de Marly</span>
+                        <h3>Althaïr</h3>
+                        <div class="prod-price">$350.00</div>
+                    </div>
+                </div>
+
+                <!-- Product 3: Naxos -->
+                <div class="product-card">
+                    <div class="prod-img-container">
+                        <img src="https://fimgs.net/mdimg/perfume-thumbs/375x500.30529.2x.avif" alt="Naxos">
+                        <button class="add-btn" onclick="addToCart('Naxos', 260.00, 'https://fimgs.net/mdimg/perfume-thumbs/375x500.30529.2x.avif')">Añadir al Carrito</button>
+                    </div>
+                    <div class="prod-info">
+                        <span class="prod-category">Aromático Dulce / Xerjoff</span>
+                        <h3>Naxos</h3>
+                        <div class="prod-price">$260.00</div>
+                    </div>
+                </div>
+                
+                <!-- Product 4: Delina -->
+                 <div class="product-card">
+                    <div class="prod-img-container">
+                        <img src="https://fimgs.net/mdimg/perfume-thumbs/375x500.43871.2x.avif" alt="Delina">
+                        <button class="add-btn" onclick="addToCart('Delina', 375.00, 'https://fimgs.net/mdimg/perfume-thumbs/375x500.43871.2x.avif')">Añadir al Carrito</button>
+                    </div>
+                    <div class="prod-info">
+                        <span class="prod-category">Floral / Parfums de Marly</span>
+                        <h3>Delina</h3>
+                        <div class="prod-price">$375.00</div>
+                    </div>
+                </div>
+
+                <!-- Product 5: Angels' Share -->
+                <div class="product-card">
+                    <div class="prod-img-container">
+                        <img src="https://fimgs.net/mdimg/perfume-thumbs/375x500.62615.2x.avif" alt="Angels Share">
+                        <button class="add-btn" onclick="addToCart('Angels Share', 245.00, 'https://fimgs.net/mdimg/perfume-thumbs/375x500.62615.2x.avif')">Añadir al Carrito</button>
+                    </div>
+                    <div class="prod-info">
+                        <span class="prod-category">Gourmand Licoroso / Kilian</span>
+                        <h3>Angels' Share</h3>
+                        <div class="prod-price">$245.00</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 60px;">
+                <a href="#" class="btn btn-outline">Ver catálogo completo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Consultant Section -->
+    <section id="consultant" class="ai-consultant">
+        <div class="container">
+            <h2>El Sommelier de Aromas</h2>
+            <p>Descubre tu fragancia ideal. Describe tu personalidad, tus recuerdos favoritos o cómo quieres sentirte, y nuestra IA experta seleccionará el perfume perfecto para ti.</p>
+            
+            <div class="ai-input-container">
+                <textarea id="aiInput" class="ai-textarea" rows="2" placeholder="Ej: Me gustan los aromas dulces pero con carácter, para una cita nocturna en invierno..."></textarea>
+                <button class="ai-btn" onclick="consultGemini()">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Consultar al Experto ✨
+                </button>
+                
+                <div id="aiLoading" class="ai-loading">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i> Analizando esencias...
+                </div>
+                
+                <div id="aiResult" class="ai-result"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="historia" class="story">
+        <div class="story-img"></div>
+        <div class="story-text">
+            <h3>Nuestra Filosofía</h3>
+            <h2>Curaduría de Excelencia</h2>
+            <p>En "La Estela" somos apasionados curadores de aromas. No fabricamos perfumes; buscamos y traemos para ti las creaciones más exclusivas de las casas internacionales más prestigiosas. Somos tu conexión directa con el arte olfativo mundial.</p>
+            <p>Cada botella en nuestro catálogo ha sido seleccionada de entre las mejores marcas nicho por su carácter único y su estela inolvidable.</p>
+            <div style="font-family: 'Playfair Display', serif; font-size: 2rem; font-style: italic; opacity: 0.6; margin-top: 20px;">
+                La Estela
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="container">
+            <h2>Únete al Club Privado</h2>
+            <p>Recibe muestras exclusivas, lanzamientos anticipados y consejos de nuestros perfumistas.</p>
+            <div class="input-group">
+                <input type="email" placeholder="Tu correo electrónico">
+                <button>SUSCRIBIRSE</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policies Section -->
+    <section id="politicas" class="policies-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nuestras Políticas</h2>
+                <p>Transparencia y compromiso en cada detalle</p>
+            </div>
+            
+            <div class="policies-grid">
+                <div class="policy-card">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <h3>Envíos y Entregas</h3>
+                    <p>Realizamos envíos seguros a todo México. Nuestro tiempo de procesamiento es de 24 a 48 horas hábiles.</p>
+                    <ul class="policy-list">
+                        <li><strong>Estándar:</strong> $50.00 USD (3-5 días hábiles)</li>
+                        <li><strong>Gratis:</strong> En compras superiores a $500.00 USD</li>
+                        <li><strong>Rastreo:</strong> Recibirás un código de seguimiento al despachar tu orden.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-card">
+                    <i class="fa-regular fa-credit-card"></i>
+                    <h3>Métodos de Pago</h3>
+                    <p>Tu seguridad es nuestra prioridad. Utilizamos encriptación SSL de nivel bancario para todas las transacciones.</p>
+                    <ul class="policy-list">
+                        <li>Tarjetas de Crédito/Débito (Visa, MC, Amex)</li>
+                        <li>Facturación disponible solicitándola al finalizar la compra.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-card">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>Privacidad y Garantía</h3>
+                    <p>Comprometidos con la excelencia y la protección de tus datos personales.</p>
+                    <ul class="policy-list">
+                        <li><strong>Privacidad:</strong> No compartimos tu información con terceros.</li>
+                        <li><strong>Originalidad:</strong> Garantizamos la autenticidad del 100% de nuestro catálogo.</li>
+                        <li><strong>Devoluciones:</strong> Aceptadas solo si el producto llega dañado o incorrecto (verificable en 24h).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4 class="logo" style="font-size: 1.5rem; margin-bottom: 10px; text-transform: none; font-style: italic;">La Estela</h4>
+                    <p>Distribuidor oficial de las casas más prestigiosas del mundo.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Explorar</h4>
+                    <ul>
+                        <li><a href="#">Best Sellers</a></li>
+                        <li><a href="#politicas">Políticas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Ayuda</h4>
+                    <ul>
+                        <li><a href="#contacto">Contacto</a></li>
+                        <li><a href="#politicas">Envíos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Síguenos</h4>
+                    <div style="font-size: 1.5rem;">
+                        <i class="fa-brands fa-instagram" style="margin-right: 15px; cursor: pointer;"></i>
+                        <i class="fa-brands fa-facebook" style="cursor: pointer;"></i>
+                        <i class="fa-brands fa-pinterest" style="margin-left: 15px; cursor: pointer;"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 La Estela Boutique. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART SIDE DRAWER -->
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCartDrawer()"></div>
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="drawer-header">
+            <h2>Carrito (<span id="drawerCount">0</span>)</h2>
+            <div class="close-drawer" onclick="closeCartDrawer()">&times;</div>
+        </div>
+        
+        <!-- Free Shipping Progress -->
+        <div class="shipping-bar-container" id="shippingBarContainer">
+            <p class="shipping-msg" id="shippingMsg">¡Faltan <strong>$100.00</strong> para envío gratis!</p>
+            <div class="progress-track">
+                <div class="progress-fill" id="shippingProgress"></div>
+            </div>
+        </div>
+
+        <div class="drawer-content" id="drawerItems">
+            <!-- Items injected via JS -->
+            <p style="text-align: center; margin-top: 50px; color: #999;">Tu carrito está vacío.</p>
+        </div>
+
+        <div class="drawer-footer" id="drawerFooter">
+            <div class="cart-summary-row total-row">
+                <span>Subtotal</span>
+                <span id="drawerTotal">$0.00</span>
+            </div>
+            <p class="checkout-note" style="margin-bottom: 15px;">Impuestos y envío calculados al finalizar.</p>
+            <button class="btn btn-primary btn-block" onclick="openCheckout()">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- AUTH MODAL (LOGIN/SIGNUP) -->
+    <div class="modal-base" id="authModal">
+        <div class="checkout-header" style="position: absolute; top:0; width:100%; border-bottom: none; background: transparent;">
+            <div style="margin-left: auto; cursor:pointer; font-weight:bold; color: #888;" onclick="closeAuthModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+        <div class="auth-modal-content">
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="switchAuthTab('login')" id="tab-login">Iniciar Sesión</div>
+                <div class="auth-tab" onclick="switchAuthTab('signup')" id="tab-signup">Crear Cuenta</div>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm">
+                <div class="form-group">
+                    <input type="email" id="loginEmail" class="form-control" placeholder="Correo electrónico">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPass" class="form-control" placeholder="Contraseña">
+                </div>
+                <div style="text-align:right; margin-bottom: 20px;">
+                    <a href="#" style="font-size: 0.8rem; color: #666; text-decoration: underline;">¿Olvidaste tu contraseña?</a>
+                </div>
+                <button class="btn btn-primary btn-block" onclick="handleLogin()">Entrar</button>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div id="signupForm" style="display:none;">
+                <div class="form-group">
+                    <input type="text" id="signupName" class="form-control" placeholder="Nombre completo">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="signupEmail" class="form-control" placeholder="Correo electrónico">
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signupPass" class="form-control" placeholder="Contraseña">
+                </div>
+                <div class="form-group" style="display: flex; align-items: flex-start;">
+                    <input type="checkbox" style="margin-top: 5px; margin-right: 10px;">
+                    <span style="font-size: 0.8rem; color: #666;">Acepto los términos y condiciones y la política de privacidad.</span>
+                </div>
+                <button class="btn btn-primary btn-block" onclick="handleSignup()">Crear Cuenta</button>
+            </div>
+            
+            <!-- User Logged In View -->
+            <div id="userLoggedInView" style="display:none; text-align: center;">
+                <h3>Hola, <span id="userNameDisplay">Usuario</span></h3>
+                <p style="color: #666; margin-bottom: 30px;">Bienvenido de nuevo a La Estela.</p>
+                <button class="btn btn-outline btn-block" onclick="handleLogout()">Cerrar Sesión</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FULL CHECKOUT OVERLAY (UPDATED TO BE A DISTINCT WINDOW) -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-window">
+            <div class="checkout-header">
+                <div class="logo" style="font-size: 1.5rem;">La Estela</div>
+                <div style="cursor:pointer; font-weight:bold; color: var(--text-muted);" onclick="returnToCart()">
+                    <i class="fa-solid fa-chevron-left" style="font-size: 0.8rem; margin-right: 5px;"></i> Volver al carrito
+                </div>
+            </div>
+            <div class="checkout-container">
+                <div class="checkout-col">
+                    <div class="section-title">
+                        Contacto
+                        <span id="checkoutLoginPrompt" style="font-size: 0.85rem; color: #666; font-weight: 400;">¿Ya tienes cuenta? <a href="#" onclick="openAuthModalFromCheckout()" style="text-decoration: underline;">Iniciar Sesión</a></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="checkoutEmail" class="form-control" placeholder="Correo electrónico o número de teléfono móvil">
+                    </div>
+                    <div class="form-group" style="display: flex; align-items: center;">
+                        <input type="checkbox" id="newsletter_check" style="margin-right: 10px;">
+                        <label for="newsletter_check" style="font-size: 0.9rem; color: #555;">Enviarme novedades y ofertas por correo electrónico</label>
+                    </div>
+                    
+                    <div class="section-title" style="margin-top: 30px;">Entrega</div>
+                    <div class="form-group">
+                        <select class="form-control" style="background-color: #f9f9f9; cursor: not-allowed;">
+                            <option>México</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="checkoutName" class="form-control" placeholder="Nombre">
+                        <input type="text" class="form-control" placeholder="Apellido">
+                    </div>
+                    <div class="form-group" style="margin-top: 15px;">
+                        <input type="text" class="form-control" placeholder="Calle y número">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Apartamento, local, etc. (opcional)">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" class="form-control" placeholder="Código postal">
+                        <input type="text" class="form-control" placeholder="Ciudad">
+                        <input type="text" class="form-control" placeholder="Estado">
+                    </div>
+                    <div class="form-group" style="margin-top: 15px;">
+                        <input type="text" class="form-control" placeholder="Teléfono">
+                    </div>
+
+                    <div class="section-title" style="margin-top: 40px;">Pago</div>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Todas las transacciones son seguras y están encriptadas.</p>
+                    
+                    <div class="payment-box">
+                        <div class="payment-header">
+                            <span style="font-weight: 700;">Tarjeta de crédito</span>
+                            <div class="card-icons">
+                                <i class="fa-brands fa-cc-visa" style="color: #1a1f71;"></i>
+                                <i class="fa-brands fa-cc-mastercard" style="color: #eb001b;"></i>
+                                <i class="fa-brands fa-cc-amex" style="color: #006fcf;"></i>
+                            </div>
+                        </div>
+                        <div class="payment-body">
+                            <div class="form-group">
+                                <div style="position: relative;">
+                                    <input type="text" class="form-control" placeholder="Número de tarjeta" style="padding-right: 40px;">
+                                    <i class="fa-solid fa-lock" style="position: absolute; right: 15px; top: 15px; color: #aaa;"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Nombre en la tarjeta">
+                            </div>
+                            <div class="form-row">
+                                <input type="text" class="form-control" placeholder="Vencimiento (MM/AA)">
+                                <div style="position: relative; flex: 1;">
+                                    <input type="text" class="form-control" placeholder="Código de seguridad (CVV)">
+                                    <i class="fa-regular fa-circle-question" style="position: absolute; right: 15px; top: 15px; color: #aaa; cursor: help;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-block" style="margin-top: 30px; padding: 18px; font-size: 1rem;" onclick="processPayment()">Pagar Ahora</button>
+                </div>
+                
+                <div class="checkout-col bg-gray">
+                    <div id="checkoutItemsList">
+                        <!-- Items cloned here -->
+                    </div>
+                    
+                    <!-- Discount Code Input -->
+                    <div style="display: flex; gap: 10px; margin-top: 20px; border-bottom: 1px solid #ddd; padding-bottom: 25px;">
+                        <input type="text" class="form-control" placeholder="Tarjeta de regalo o código de descuento">
+                        <button class="btn btn-outline" style="padding: 10px 20px; color: #666; border-color: #ddd; background: #eee;">Usar</button>
+                    </div>
+
+                    <div style="margin-top: 25px;">
+                        <div class="cart-summary-row" style="color: #555;">
+                            <span>Subtotal</span>
+                            <span id="checkoutSubtotal" style="color: #333; font-weight: 700;">$0.00</span>
+                        </div>
+                        <div class="cart-summary-row" style="color: #555;">
+                            <span>Envío</span>
+                            <span id="checkoutShipping" style="font-size: 0.9rem;">Calculando...</span>
+                        </div>
+                        <div class="cart-summary-row total-row" style="font-size: 1.5rem; margin-top: 20px; border-top: 1px solid #ddd; padding-top: 20px; align-items: center;">
+                            <span style="font-weight: 400; color: #333;">Total</span>
+                            <div style="text-align: right;">
+                                <span style="display: block; font-size: 0.8rem; color: #888; font-weight: 400;">MXN</span>
+                                <span id="checkoutTotal">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Simulation Overlays -->
+    <div id="simulationOverlay" class="simulation-overlay">
+        <div class="simulation-spinner"></div>
+        <h2 id="simTitle">Procesando...</h2>
+        <p id="simDesc">Por favor espera un momento.</p>
+    </div>
+
+    <div id="successOverlay" style="position:fixed; inset:0; background:rgba(255,255,255,0.98); z-index:3000; display:none; align-items:center; justify-content:center; flex-direction:column; text-align: center; padding: 20px;">
+        <i class="fa-regular fa-circle-check" style="font-size: 5rem; color: #4CAF50; margin-bottom: 20px;"></i>
+        <h2>¡Orden Confirmada!</h2>
+        <p style="font-size: 1.1rem; color: #555; max-width: 500px; margin-bottom: 10px;">Gracias por tu compra. Hemos enviado un correo electrónico con los detalles de tu pedido y el número de rastreo.</p>
+        <p style="font-size: 0.9rem; color: #888; margin-bottom: 30px;">Orden #LE-2026-8842</p>
+        <button class="btn btn-primary" onclick="location.reload()">Volver al Inicio</button>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div id="cookieBanner" class="cookie-banner">
+        <p>Utilizamos cookies para recordar tu carrito y mejorar tu experiencia. <a href="#politicas" style="text-decoration: underline;">Ver Políticas</a></p>
+        <button class="cookie-btn" onclick="acceptCookies()">Aceptar y Cerrar</button>
+    </div>
+
+    <!-- Toast Notification Element -->
+    <div id="toast"><i class="fa-solid fa-check"></i> <span id="toast-msg">Producto añadido al carrito</span></div>
+
+    <script>
+        // --- Shopping Cart Logic ---
+        let cart = [];
+        let currentUser = null; // Store user info here
+        const FREE_SHIPPING_THRESHOLD = 500;
+        const STANDARD_SHIPPING_COST = 50.00;
+        
+        // DOM Elements
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartDrawer = document.getElementById('cartDrawer');
+        const drawerItems = document.getElementById('drawerItems');
+        const drawerTotal = document.getElementById('drawerTotal');
+        const drawerCount = document.getElementById('drawerCount');
+        const cartCountBadge = document.querySelector('.cart-count');
+        const userStatusDot = document.getElementById('userStatusDot');
+        
+        // Checkout Elements
+        const checkoutModal = document.getElementById('checkoutModal');
+        const checkoutItemsList = document.getElementById('checkoutItemsList');
+        const checkoutSubtotal = document.getElementById('checkoutSubtotal');
+        const checkoutShipping = document.getElementById('checkoutShipping');
+        const checkoutTotal = document.getElementById('checkoutTotal');
+
+        // Simulation Elements
+        const simOverlay = document.getElementById('simulationOverlay');
+        const simTitle = document.getElementById('simTitle');
+        const simDesc = document.getElementById('simDesc');
+
+        function initApp() {
+            // Cart Init
+            const storedCart = localStorage.getItem('laEstelaCart');
+            if (storedCart) {
+                cart = JSON.parse(storedCart);
+                updateCartUI();
+            }
+            
+            // User Init
+            const storedUser = localStorage.getItem('laEstelaUser');
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+                updateAuthUI();
+            }
+
+            // Check Cookies
+            if (!localStorage.getItem('cookieConsent')) {
+                document.getElementById('cookieBanner').style.display = 'block';
+            }
+        }
+
+        // --- Auth Logic ---
+        function openAuthModal() {
+            const modal = document.getElementById('authModal');
+            modal.style.display = 'flex';
+            document.body.classList.add('modal-open');
+            
+            if(currentUser) {
+                document.getElementById('userLoggedInView').style.display = 'block';
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('signupForm').style.display = 'none';
+                document.querySelector('.auth-tabs').style.display = 'none';
+                document.getElementById('userNameDisplay').innerText = currentUser.name;
+            } else {
+                document.getElementById('userLoggedInView').style.display = 'none';
+                document.querySelector('.auth-tabs').style.display = 'flex';
+                switchAuthTab('login');
+            }
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+
+        function switchAuthTab(tab) {
+            if (tab === 'login') {
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('signupForm').style.display = 'none';
+                document.getElementById('tab-login').classList.add('active');
+                document.getElementById('tab-signup').classList.remove('active');
+            } else {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('signupForm').style.display = 'block';
+                document.getElementById('tab-login').classList.remove('active');
+                document.getElementById('tab-signup').classList.add('active');
+            }
+        }
+
+        function handleSignup() {
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            
+            if(!name || !email) {
+                alert("Por favor completa los campos.");
+                return;
+            }
+
+            // Simulation Sequence
+            simOverlay.style.display = 'flex';
+            simTitle.innerText = "Creando Cuenta";
+            simDesc.innerText = "Registrando tus datos en nuestra base de datos...";
+
+            setTimeout(() => {
+                simTitle.innerText = "Enviando Correo";
+                simDesc.innerText = `Enviando correo de bienvenida a ${email}...`;
+                
+                setTimeout(() => {
+                    simOverlay.style.display = 'none';
+                    // Success
+                    currentUser = { name: name, email: email };
+                    localStorage.setItem('laEstelaUser', JSON.stringify(currentUser));
+                    updateAuthUI();
+                    closeAuthModal();
+                    
+                    // Show confirmation Toast
+                    const toast = document.getElementById("toast");
+                    const toastMsg = document.getElementById("toast-msg");
+                    toastMsg.innerText = "Cuenta creada y verificada";
+                    toast.className = "show";
+                    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+
+                }, 2000);
+            }, 1500);
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value;
+            if(!email) { alert("Ingresa tu correo."); return; }
+
+            // Simple simulation (Login successful for any email)
+            simOverlay.style.display = 'flex';
+            simTitle.innerText = "Iniciando Sesión";
+            simDesc.innerText = "Verificando credenciales...";
+
+            setTimeout(() => {
+                simOverlay.style.display = 'none';
+                // Fake user data retrieval
+                currentUser = { name: "Usuario", email: email }; 
+                localStorage.setItem('laEstelaUser', JSON.stringify(currentUser));
+                updateAuthUI();
+                closeAuthModal();
+            }, 1000);
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem('laEstelaUser');
+            updateAuthUI();
+            closeAuthModal();
+        }
+
+        function updateAuthUI() {
+            if(currentUser) {
+                userStatusDot.style.display = 'block';
+            } else {
+                userStatusDot.style.display = 'none';
+            }
+        }
+
+        function openAuthModalFromCheckout() {
+            closeCheckout();
+            openAuthModal();
+        }
+
+        // --- Cart Logic ---
+        function addToCart(name, price, image) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.qty++;
+            } else {
+                cart.push({
+                    id: Date.now(),
+                    name: name,
+                    price: price,
+                    image: image || 'https://via.placeholder.com/80x100?text=No+Img',
+                    qty: 1
+                });
+            }
+            saveCart();
+            updateCartUI();
+            openCartDrawer();
+            
+            const toast = document.getElementById("toast");
+            const toastMsg = document.getElementById("toast-msg");
+            toastMsg.innerText = name + " añadido";
+            toast.className = "show";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        function changeQty(id, change) {
+            const itemIndex = cart.findIndex(item => item.id === id);
+            if (itemIndex > -1) {
+                cart[itemIndex].qty += change;
+                if (cart[itemIndex].qty <= 0) {
+                    cart.splice(itemIndex, 1);
+                }
+                saveCart();
+                updateCartUI();
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            saveCart();
+            updateCartUI();
+        }
+
+        function saveCart() {
+            localStorage.setItem('laEstelaCart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            let total = 0;
+            let count = 0;
+            
+            drawerItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                drawerItems.innerHTML = '<div style="text-align:center; padding: 40px 0;"><i class="fa-solid fa-basket-shopping" style="font-size: 2rem; color: #ddd; margin-bottom: 10px;"></i><p>Tu carrito está vacío.</p><button class="btn btn-outline" onclick="closeCartDrawer()" style="margin-top:15px; font-size:0.7rem;">Empezar a comprar</button></div>';
+                document.getElementById('drawerFooter').style.display = 'none';
+            } else {
+                document.getElementById('drawerFooter').style.display = 'block';
+                
+                cart.forEach(item => {
+                    total += item.price * item.qty;
+                    count += item.qty;
+                    
+                    const el = document.createElement('div');
+                    el.className = 'cart-item';
+                    el.innerHTML = `
+                        <img src="${item.image}" class="cart-item-img" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <span class="cart-item-name">${item.name}</span>
+                            <span class="cart-item-price">$${item.price.toFixed(2)}</span>
+                            <div class="qty-selector">
+                                <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
+                                <input type="number" class="qty-input" value="${item.qty}" readonly>
+                                <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                            </div>
+                            <span class="cart-item-remove" onclick="removeFromCart(${item.id})">Eliminar</span>
+                        </div>
+                        <div style="font-weight:700;">$${(item.price * item.qty).toFixed(2)}</div>
+                    `;
+                    drawerItems.appendChild(el);
+                });
+            }
+
+            drawerTotal.innerText = '$' + total.toFixed(2);
+            drawerCount.innerText = count;
+            cartCountBadge.innerText = count;
+
+            // Free Shipping Logic
+            const shippingMsg = document.getElementById('shippingMsg');
+            const shippingProgress = document.getElementById('shippingProgress');
+            
+            if (total >= FREE_SHIPPING_THRESHOLD) {
+                shippingMsg.innerHTML = '¡Felicidades! Tienes <strong>Envío Gratis</strong>';
+                shippingProgress.style.width = '100%';
+                shippingProgress.style.background = '#4CAF50'; 
+            } else {
+                const remaining = FREE_SHIPPING_THRESHOLD - total;
+                const percent = (total / FREE_SHIPPING_THRESHOLD) * 100;
+                shippingMsg.innerHTML = `Te faltan <strong>$${remaining.toFixed(2)}</strong> para envío gratis`;
+                shippingProgress.style.width = percent + '%';
+                shippingProgress.style.background = 'var(--text-main)';
+            }
+        }
+
+        // Drawer Actions
+        function openCartDrawer() {
+            cartOverlay.classList.add('open');
+            cartDrawer.classList.add('open');
+            document.body.classList.add('drawer-open');
+        }
+
+        function closeCartDrawer() {
+            cartOverlay.classList.remove('open');
+            cartDrawer.classList.remove('open');
+            document.body.classList.remove('drawer-open');
+        }
+
+        // Checkout Actions
+        function openCheckout() {
+            if (cart.length === 0) return;
+            
+            // Fill user data if logged in
+            if(currentUser) {
+                document.getElementById('checkoutEmail').value = currentUser.email;
+                document.getElementById('checkoutName').value = currentUser.name;
+                document.getElementById('checkoutLoginPrompt').style.display = 'none';
+            } else {
+                document.getElementById('checkoutLoginPrompt').style.display = 'inline';
+            }
+
+            // Populate Items from Drawer HTML (Quick Hack)
+            checkoutItemsList.innerHTML = drawerItems.innerHTML;
+            
+            // Cleanup Interactives in Checkout Summary
+            const interactives = checkoutItemsList.querySelectorAll('.qty-btn, .cart-item-remove');
+            interactives.forEach(el => el.remove());
+            
+            // Style cleanup for read-only look
+            const selectors = checkoutItemsList.querySelectorAll('.qty-selector');
+            selectors.forEach(el => el.style.border = 'none');
+            
+            // Calculate Totals
+            let subtotal = 0;
+            cart.forEach(item => subtotal += item.price * item.qty);
+            
+            let shippingCost = 0;
+            let shippingText = "Gratis";
+            
+            if (subtotal < FREE_SHIPPING_THRESHOLD) {
+                shippingCost = STANDARD_SHIPPING_COST;
+                shippingText = `$${shippingCost.toFixed(2)}`;
+            }
+
+            let total = subtotal + shippingCost;
+            
+            checkoutSubtotal.innerText = `$${subtotal.toFixed(2)}`;
+            checkoutShipping.innerText = shippingText;
+            checkoutTotal.innerText = `$${total.toFixed(2)}`;
+            
+            closeCartDrawer();
+            checkoutModal.style.display = 'flex';
+        }
+
+        function closeCheckout() {
+            checkoutModal.style.display = 'none';
+        }
+
+        function returnToCart() {
+            closeCheckout();
+            openCartDrawer();
+        }
+
+        function processPayment() {
+            const email = document.getElementById('checkoutEmail').value;
+            if(!email) { alert("Necesitamos un correo para enviarte el recibo."); return; }
+
+            // FULL SIMULATION
+            closeCheckout();
+            simOverlay.style.display = 'flex';
+            
+            // Step 1: Payment Processing
+            simTitle.innerText = "Procesando Pago";
+            simDesc.innerText = "Contactando con el banco emisor...";
+            
+            setTimeout(() => {
+                // Step 2: Order Generation
+                simTitle.innerText = "Generando Orden";
+                simDesc.innerText = "Confirmando inventario y creando número de pedido...";
+                
+                setTimeout(() => {
+                    // Step 3: Sending Email
+                    simTitle.innerText = "Enviando Confirmación";
+                    simDesc.innerText = `Enviando recibo y detalles a ${email}...`;
+                    
+                    setTimeout(() => {
+                        // Done
+                        cart = []; 
+                        saveCart(); 
+                        updateCartUI();
+                        simOverlay.style.display = 'none';
+                        document.getElementById('successOverlay').style.display = 'flex';
+                    }, 2000); // Wait for email "send"
+                }, 2000); // Wait for order gen
+            }, 2000); // Wait for payment
+        }
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'true');
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+
+        initApp();
+
+        // Gemini AI logic
+        async function consultGemini() {
+            const input = document.getElementById('aiInput').value;
+            const resultDiv = document.getElementById('aiResult');
+            const loadingDiv = document.getElementById('aiLoading');
+            if (!input.trim()) return;
+
+            loadingDiv.style.display = 'block';
+            resultDiv.classList.remove('visible');
+            resultDiv.innerHTML = '';
+            
+            const apiKey = ""; 
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+            const prompt = `
+                Actúa como un experto asesor de ventas de la boutique multimarca "La Estela".
+                Tu tono debe ser poético, sofisticado, evocador y muy elegante.
+                Analiza la siguiente descripción del usuario y recomienda UNO de los perfumes de nuestro catálogo:
+                1. Afternoon Swim (Cítrico - Louis Vuitton)
+                2. Althaïr (Vainilla Cálida - Parfums de Marly)
+                3. Naxos (Aromático Dulce - Xerjoff)
+                4. Delina (Floral - Parfums de Marly)
+                5. Angels' Share (Gourmand Licoroso - Kilian)
+                Input: "${input}"
+                Respuesta breve (máx 40 palabras). Empieza con el nombre en negrita.
+            `;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+                const data = await response.json();
+                const text = data.candidates[0].content.parts[0].text;
+                const formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                loadingDiv.style.display = 'none';
+                resultDiv.innerHTML = formattedText;
+                resultDiv.classList.add('visible');
+            } catch (error) {
+                console.error('Error:', error);
+                loadingDiv.style.display = 'none';
+                resultDiv.innerHTML = "Intenta de nuevo.";
+                resultDiv.classList.add('visible');
+            }
+        }
+    </script>
+</body>
+</html>
