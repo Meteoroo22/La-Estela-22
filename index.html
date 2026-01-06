@@ -76,6 +76,12 @@
             color: #fff;
         }
 
+        .btn-primary:disabled {
+            background-color: #999;
+            border-color: #999;
+            cursor: not-allowed;
+        }
+
         .btn-outline {
             background: transparent;
             border: 1px solid var(--text-main);
@@ -90,6 +96,11 @@
         .btn-block {
             display: block;
             width: 100%;
+        }
+
+        .btn-sm {
+            padding: 8px 20px;
+            font-size: 0.7rem;
         }
 
         /* --- Header --- */
@@ -154,7 +165,7 @@
         /* --- Hero --- */
         .hero {
             height: 90vh;
-            background: url('https://i.pinimg.com/1200x/64/1a/cd/641acdb8a2c08716e2530742e0cf5b94.jpg') center/cover;
+            background: url('https://i.pinimg.com/1200x/64/1a/cd/641acdb8a2c08716e2530742e0cf5b94.jpg') center/cover no-repeat, #1C1C1C;
             display: flex;
             align-items: center;
             position: relative;
@@ -194,9 +205,36 @@
             background: var(--bg-secondary);
         }
 
-        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header { text-align: center; margin-bottom: 40px; }
         .section-header h2 { font-size: 3rem; margin-bottom: 10px; color: var(--text-main); }
         .section-header p { color: var(--text-muted); font-style: italic; }
+
+        /* Filter Styles */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #ddd;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            color: var(--text-muted);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--text-main);
+            color: white;
+            border-color: var(--text-main);
+        }
 
         .product-grid {
             display: grid;
@@ -211,6 +249,12 @@
             transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
             border-radius: 4px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .product-card:hover {
@@ -223,6 +267,7 @@
             overflow: hidden;
             margin-bottom: 20px;
             position: relative;
+            cursor: pointer;
         }
 
         .prod-img-container img {
@@ -257,7 +302,7 @@
         .prod-info h3 { font-size: 1.1rem; margin-bottom: 5px; color: var(--text-main); font-family: var(--font-body); font-weight: 700;}
         .prod-category { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 8px; display: block; letter-spacing: 1px; }
         .prod-price { font-weight: 400; color: #444; font-size: 1rem; }
-
+        
         /* --- Story --- */
         .story {
             display: grid;
@@ -267,7 +312,7 @@
 
         .story-img {
             height: 600px;
-            background: url('https://i.pinimg.com/736x/fe/69/1c/fe691c3509db491378d1841c626ccd47.jpg') center/cover;
+            background: url('https://i.pinimg.com/736x/fe/69/1c/fe691c3509db491378d1841c626ccd47.jpg') center/cover no-repeat, #eee;
         }
 
         .story-text {
@@ -282,7 +327,7 @@
         /* --- AI Section --- */
         .ai-consultant {
             padding: 100px 0;
-            background: linear-gradient(rgba(28, 28, 28, 0.8), rgba(28, 28, 28, 0.8)), url('https://i.pinimg.com/1200x/07/e0/c1/07e0c11b4c156c6baf00d3c76cde7910.jpg') center/cover fixed;
+            background: linear-gradient(rgba(28, 28, 28, 0.8), rgba(28, 28, 28, 0.8)), url('https://i.pinimg.com/1200x/07/e0/c1/07e0c11b4c156c6baf00d3c76cde7910.jpg') center/cover fixed no-repeat, #333;
             color: white;
             text-align: center;
         }
@@ -350,63 +395,6 @@
         .ai-loading i { animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* --- Policies Section --- */
-        .policies-section {
-            padding: 80px 0;
-            background-color: #fff;
-            border-top: 1px solid #eee;
-        }
-
-        .policies-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .policy-card {
-            text-align: center;
-            padding: 30px;
-            background: var(--bg-color);
-            border-radius: 4px;
-            transition: transform 0.3s;
-            height: 100%;
-        }
-
-        .policy-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .policy-card i {
-            font-size: 2.5rem;
-            color: var(--accent-gold);
-            margin-bottom: 20px;
-        }
-
-        .policy-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: var(--text-main);
-        }
-
-        .policy-card p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-
-        .policy-list {
-            text-align: left;
-            padding-left: 20px;
-            list-style: disc;
-            font-size: 0.9rem;
-            color: #555;
-        }
-        
-        .policy-list li {
-            margin-bottom: 8px;
-        }
-
         /* --- Newsletter --- */
         .newsletter {
             padding: 80px 0;
@@ -440,7 +428,7 @@
             height: 100%;
             background: rgba(0,0,0,0.6);
             backdrop-filter: blur(2px);
-            z-index: 2000;
+            z-index: 2030; /* Aumentado para estar por encima del catálogo (2002) y búsqueda (2020) */
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
@@ -458,7 +446,7 @@
             width: var(--drawer-width);
             height: 100%;
             background: #fff;
-            z-index: 2001;
+            z-index: 2031; /* Aumentado para estar por encima del overlay */
             transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             display: flex;
             flex-direction: column;
@@ -679,7 +667,36 @@
             border-bottom: 2px solid var(--text-main);
         }
 
-        /* --- UPDATED CHECKOUT MODAL (WINDOW STYLE) --- */
+        /* --- MARKETING MODAL --- */
+        .marketing-modal-content {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            padding: 0;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .marketing-img {
+            width: 40%;
+            background: url('https://i.pinimg.com/736x/89/3e/2c/893e2c39e99999092892999088899889.jpg') center/cover;
+        }
+
+        .marketing-text {
+            width: 60%;
+            padding: 30px;
+            text-align: center;
+        }
+
+        /* --- CHECKOUT, CATALOG & PRODUCT DETAIL WINDOWS --- */
         .checkout-modal {
             position: fixed;
             inset: 0;
@@ -691,8 +708,13 @@
             backdrop-filter: blur(5px);
         }
 
-        /* Window Container for Checkout */
-        .checkout-window {
+        /* Corrección: Asegura que la vista rápida salga por encima del catálogo */
+        #productDetailModal {
+            z-index: 2010;
+        }
+
+        /* Reusing for Checkout, Catalog and Product Detail */
+        .window-container {
             background: #fff;
             width: 95%;
             max-width: 1100px;
@@ -703,6 +725,10 @@
             flex-direction: column;
             overflow: hidden;
             animation: zoomIn 0.3s ease;
+        }
+        
+        .catalog-window {
+            max-width: 1400px; /* Wider for catalog */
         }
 
         .checkout-header {
@@ -732,6 +758,88 @@
         .checkout-col.bg-gray {
             background: #fafafa;
             border-left: 1px solid #eee;
+        }
+
+        /* Product Detail Specific Styles */
+        .product-detail-grid {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .pd-image-col {
+            flex: 1;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            min-width: 300px;
+        }
+
+        .pd-image-col img {
+            max-height: 80%;
+            max-width: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+        }
+
+        .pd-info-col {
+            flex: 1;
+            padding: 60px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .pd-brand {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .pd-title {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+
+        .pd-price {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .pd-description {
+            color: #555;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .house-info-box {
+            background-color: #fafafa;
+            padding: 20px;
+            border-left: 3px solid var(--accent-gold);
+            margin-bottom: 40px;
+        }
+
+        .house-info-box h4 {
+            font-family: var(--font-display);
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .house-info-box p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0;
         }
         
         /* New Aesthetic Inputs */
@@ -850,6 +958,83 @@
             margin-bottom: 20px;
         }
 
+        /* --- Search Overlay Styles --- */
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            z-index: 2020; /* High z-index */
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 80px;
+            animation: fadeIn 0.3s ease;
+        }
+        .search-container {
+            width: 90%;
+            max-width: 1000px;
+        }
+        .search-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--text-main);
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .search-header input {
+            width: 100%;
+            border: none;
+            font-size: 2rem;
+            font-family: var(--font-display);
+            padding: 15px 0;
+            outline: none;
+            background: transparent;
+        }
+        .close-search {
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+        .close-search:hover { color: var(--text-main); }
+
+        /* Policy Modal Styles */
+        .policy-modal-content {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            padding: 50px;
+            border-radius: 4px;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: zoomIn 0.3s ease;
+        }
+
+        .policy-text-body h4 {
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: var(--text-main);
+            font-size: 1.1rem;
+        }
+
+        .policy-text-body p {
+            margin-bottom: 15px;
+            color: #555;
+            text-align: justify;
+        }
+
+        .policy-text-body ul {
+            list-style: disc;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
         /* Responsive */
         @media (max-width: 900px) {
             .cat-grid { grid-template-columns: 1fr; gap: 10px; }
@@ -858,11 +1043,19 @@
             .story-img { height: 300px; }
             .story-text { padding: 40px 20px; }
             .hero-content h1 { font-size: 3rem; }
-            /* Checkout Responsive */
-            .checkout-window { height: 100%; border-radius: 0; max-width: 100%; width: 100%; }
+            /* Checkout/Catalog Responsive */
+            .window-container { height: 100%; border-radius: 0; max-width: 100%; width: 100%; }
             .checkout-col { padding: 20px; border-left: none; }
             .checkout-container { flex-direction: column-reverse; }
-            .policies-grid { grid-template-columns: 1fr; gap: 20px; }
+            
+            .product-detail-grid { flex-direction: column; }
+            .pd-image-col { padding: 20px; height: 300px; }
+            .pd-info-col { padding: 30px 20px; }
+            .pd-title { font-size: 2rem; }
+            
+            .marketing-modal-content { flex-direction: column; }
+            .marketing-img { height: 150px; width: 100%; }
+            .marketing-text { width: 100%; }
         }
 
         @media (max-width: 500px) {
@@ -888,7 +1081,7 @@
                 </ul>
             </nav>
             <div class="nav-icons">
-                <i class="fa-solid fa-magnifying-glass" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-magnifying-glass" style="cursor: pointer;" onclick="openSearch()"></i>
                 <div class="user-icon" onclick="openAuthModal()">
                     <i class="fa-regular fa-user"></i>
                     <div id="userStatusDot" class="user-status-dot"></div>
@@ -900,6 +1093,19 @@
             </div>
         </div>
     </header>
+
+    <!-- SEARCH OVERLAY -->
+    <div id="searchOverlay" class="search-overlay">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="searchInput" placeholder="Buscar fragancia, marca o nota..." onkeyup="handleSearch(this.value)">
+                <i class="fa-solid fa-xmark close-search" onclick="closeSearch()"></i>
+            </div>
+            <div id="searchResults" class="product-grid">
+                <!-- Results go here -->
+            </div>
+        </div>
+    </div>
 
     <section class="hero">
         <div class="hero-content">
@@ -917,88 +1123,13 @@
                 <p>Nuestra selección de perfumes de culto</p>
             </div>
 
-            <div class="product-grid">
-                <!-- Product 1: Afternoon Swim -->
-                <div class="product-card">
-                    <div class="prod-img-container">
-                        <img src="https://fimgs.net/mdimg/perfume-thumbs/375x500.53947.2x.avif" alt="Afternoon Swim">
-                        <button class="add-btn" onclick="addToCart('Afternoon Swim', 280.00, 'https://fimgs.net/mdimg/perfume-thumbs/375x500.53947.2x.avif')">Añadir al Carrito</button>
-                    </div>
-                    <div class="prod-info">
-                        <span class="prod-category">Cítrico / Louis Vuitton</span>
-                        <h3>Afternoon Swim</h3>
-                        <div class="prod-price">$280.00</div>
-                    </div>
-                </div>
-
-                <!-- Product 2: Althaïr -->
-                <div class="product-card">
-                    <div class="prod-img-container">
-                        <img src="https://fimgs.net/mdimg/perfume-thumbs/375x500.84109.2x.avif" alt="Althaïr">
-                        <button class="add-btn" onclick="addToCart('Althaïr', 350.00, 'https://fimgs.net/mdimg/perfume-thumbs/375x500.84109.2x.avif')">Añadir al Carrito</button>
-                    </div>
-                    <div class="prod-info">
-                        <span class="prod-category">Vainilla Cálida / Parfums de Marly</span>
-                        <h3>Althaïr</h3>
-                        <div class="prod-price">$350.00</div>
-                    </div>
-                </div>
-
-                <!-- Product 3: Naxos -->
-                <div class="product-card">
-                    <div class="prod-img-container">
-                        <img src="https://fimgs.net/mdimg/perfume-thumbs/375x500.30529.2x.avif" alt="Naxos">
-                        <button class="add-btn" onclick="addToCart('Naxos', 260.00, 'https://fimgs.net/mdimg/perfume-thumbs/375x500.30529.2x.avif')">Añadir al Carrito</button>
-                    </div>
-                    <div class="prod-info">
-                        <span class="prod-category">Aromático Dulce / Xerjoff</span>
-                        <h3>Naxos</h3>
-                        <div class="prod-price">$260.00</div>
-                    </div>
-                </div>
-                
-                <!-- Product 4: Delina -->
-                 <div class="product-card">
-                    <div class="prod-img-container">
-                        <img src="https://fimgs.net/mdimg/perfume-thumbs/375x500.43871.2x.avif" alt="Delina">
-                        <button class="add-btn" onclick="addToCart('Delina', 375.00, 'https://fimgs.net/mdimg/perfume-thumbs/375x500.43871.2x.avif')">Añadir al Carrito</button>
-                    </div>
-                    <div class="prod-info">
-                        <span class="prod-category">Floral / Parfums de Marly</span>
-                        <h3>Delina</h3>
-                        <div class="prod-price">$375.00</div>
-                    </div>
-                </div>
-
-                <!-- Product 5: Angels' Share -->
-                <div class="product-card">
-                    <div class="prod-img-container">
-                        <img src="https://fimgs.net/mdimg/perfume-thumbs/375x500.62615.2x.avif" alt="Angels Share">
-                        <button class="add-btn" onclick="addToCart('Angels Share', 245.00, 'https://fimgs.net/mdimg/perfume-thumbs/375x500.62615.2x.avif')">Añadir al Carrito</button>
-                    </div>
-                    <div class="prod-info">
-                        <span class="prod-category">Gourmand Licoroso / Kilian</span>
-                        <h3>Angels' Share</h3>
-                        <div class="prod-price">$245.00</div>
-                    </div>
-                </div>
-                
-                 <!-- Product 6: Tuxedo -->
-                <div class="product-card">
-                    <div class="prod-img-container">
-                        <img src="https://fimgs.net/mdimg/perfume-thumbs/375x500.32269.2x.avif" alt="Tuxedo">
-                        <button class="add-btn" onclick="addToCart('Tuxedo', 350.00, 'https://fimgs.net/mdimg/perfume-thumbs/375x500.32269.2x.avif')">Añadir al Carrito</button>
-                    </div>
-                    <div class="prod-info">
-                        <span class="prod-category">Especiado Ambarado / Yves Saint Laurent</span>
-                        <h3>Tuxedo</h3>
-                        <div class="prod-price">$350.00</div>
-                    </div>
-                </div>
+            <!-- Dynamic Product Grid -->
+            <div id="favorites-grid" class="product-grid">
+                <!-- Products injected by JS -->
             </div>
             
             <div style="text-align: center; margin-top: 60px;">
-                <a href="#" class="btn btn-outline">Ver catálogo completo</a>
+                <button class="btn btn-outline" onclick="openCatalogModal()">Ver catálogo completo</button>
             </div>
         </div>
     </section>
@@ -1048,82 +1179,47 @@
         </div>
     </section>
 
-    <!-- Policies Section -->
-    <section id="politicas" class="policies-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Nuestras Políticas</h2>
-                <p>Transparencia y compromiso en cada detalle</p>
-            </div>
-            
-            <div class="policies-grid">
-                <div class="policy-card">
-                    <i class="fa-solid fa-truck-fast"></i>
-                    <h3>Envíos y Entregas</h3>
-                    <p>Realizamos envíos seguros a todo México. Nuestro tiempo de procesamiento es de 24 a 48 horas hábiles.</p>
-                    <ul class="policy-list">
-                        <li><strong>Estándar:</strong> $50.00 USD (3-5 días hábiles)</li>
-                        <li><strong>Gratis:</strong> En compras superiores a $500.00 USD</li>
-                        <li><strong>Rastreo:</strong> Recibirás un código de seguimiento al despachar tu orden.</li>
-                    </ul>
-                </div>
-
-                <div class="policy-card">
-                    <i class="fa-regular fa-credit-card"></i>
-                    <h3>Métodos de Pago</h3>
-                    <p>Tu seguridad es nuestra prioridad. Utilizamos encriptación SSL de nivel bancario para todas las transacciones.</p>
-                    <ul class="policy-list">
-                        <li>Tarjetas de Crédito/Débito (Visa, MC, Amex)</li>
-                        <li>Facturación disponible solicitándola al finalizar la compra.</li>
-                    </ul>
-                </div>
-
-                <div class="policy-card">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <h3>Privacidad y Garantía</h3>
-                    <p>Comprometidos con la excelencia y la protección de tus datos personales.</p>
-                    <ul class="policy-list">
-                        <li><strong>Privacidad:</strong> No compartimos tu información con terceros.</li>
-                        <li><strong>Originalidad:</strong> Garantizamos la autenticidad del 100% de nuestro catálogo.</li>
-                        <li><strong>Devoluciones:</strong> Aceptadas solo si el producto llega dañado o incorrecto (verificable en 24h).</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <footer id="contacto">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h4 class="logo" style="font-size: 1.5rem; margin-bottom: 10px; text-transform: none; font-style: italic;">La Estela</h4>
-                    <p>Distribuidor oficial de las casas más prestigiosas del mundo.</p>
+                    <h4 class="logo" style="font-size: 1.5rem; margin-bottom: 15px; text-transform: none; font-style: italic;">La Estela</h4>
+                    <p style="font-size: 0.85rem; color: #999;">Distribuidor oficial de las casas más prestigiosas del mundo. Curaduría olfativa desde 2026.</p>
                 </div>
+                
                 <div class="footer-col">
-                    <h4>Explorar</h4>
+                    <h4>Navegación</h4>
                     <ul>
-                        <li><a href="#">Best Sellers</a></li>
-                        <li><a href="#politicas">Políticas</a></li>
+                        <li><a href="#catalogo">Catálogo Completo</a></li>
+                        <li><a href="#consultant">Sommelier AI</a></li>
+                        <li><a href="#historia">Nuestra Historia</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-col">
-                    <h4>Ayuda</h4>
+                    <h4>Atención al Cliente</h4>
                     <ul>
-                        <li><a href="#contacto">Contacto</a></li>
-                        <li><a href="#politicas">Envíos</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); openPolicy('shipping')">Envíos y Devoluciones</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); openPolicy('terms')">Términos y Condiciones</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); openPolicy('privacy')">Aviso de Privacidad</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-col">
-                    <h4>Síguenos</h4>
+                    <h4>Contáctanos</h4>
+                    <ul style="margin-bottom: 15px;">
+                        <li><a href="mailto:hola@laestela.mx"><i class="fa-regular fa-envelope" style="margin-right: 8px;"></i> hola@laestela.mx</a></li>
+                        <li><a href="tel:+525512345678"><i class="fa-brands fa-whatsapp" style="margin-right: 8px;"></i> +52 55 1234 5678</a></li>
+                    </ul>
                     <div style="font-size: 1.5rem;">
-                        <i class="fa-brands fa-instagram" style="margin-right: 15px; cursor: pointer;"></i>
-                        <i class="fa-brands fa-facebook" style="cursor: pointer;"></i>
-                        <i class="fa-brands fa-pinterest" style="margin-left: 15px; cursor: pointer;"></i>
+                        <a href="https://instagram.com" target="_blank" style="margin-right: 15px;"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://pinterest.com" target="_blank" style="margin-left: 15px;"><i class="fa-brands fa-pinterest"></i></a>
                     </div>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2026 La Estela Boutique. Todos los derechos reservados.</p>
+                <p>&copy; 2026 La Estela Boutique. Todos los derechos reservados. | Ciudad de México</p>
             </div>
         </div>
     </footer>
@@ -1138,7 +1234,7 @@
         
         <!-- Free Shipping Progress -->
         <div class="shipping-bar-container" id="shippingBarContainer">
-            <p class="shipping-msg" id="shippingMsg">¡Faltan <strong>$100.00</strong> para envío gratis!</p>
+            <p class="shipping-msg" id="shippingMsg">¡Faltan <strong>$1,500.00</strong> para envío gratis!</p>
             <div class="progress-track">
                 <div class="progress-fill" id="shippingProgress"></div>
             </div>
@@ -1150,12 +1246,34 @@
         </div>
 
         <div class="drawer-footer" id="drawerFooter">
+            <!-- Discount Row (Visible only when active) -->
+            <div class="cart-summary-row" id="drawerDiscountRow" style="display: none; color: #4CAF50;">
+                <span>Descuento (10%)</span>
+                <span id="drawerDiscountAmount">-$0.00</span>
+            </div>
             <div class="cart-summary-row total-row">
-                <span>Subtotal</span>
+                <span>Total</span>
                 <span id="drawerTotal">$0.00</span>
             </div>
             <p class="checkout-note" style="margin-bottom: 15px;">Impuestos y envío calculados al finalizar.</p>
             <button class="btn btn-primary btn-block" onclick="openCheckout()">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- MARKETING MODAL (POP UP) -->
+    <div class="modal-base" id="marketingModal">
+        <div style="position: absolute; top: 20px; right: 20px; z-index: 2010; cursor: pointer; color: #333;" onclick="closeMarketingModal()">
+            <i class="fa-solid fa-xmark" style="font-size: 1.5rem;"></i>
+        </div>
+        <div class="marketing-modal-content">
+            <div class="marketing-img"></div>
+            <div class="marketing-text">
+                <h3 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 10px;">¡Espera!</h3>
+                <p style="color: #666; margin-bottom: 20px;">Únete a nuestra lista exclusiva y recibe <strong>10% de descuento</strong> en tu primera compra de alta perfumería.</p>
+                <input type="email" id="marketingEmail" class="form-control" placeholder="Tu correo electrónico" style="margin-bottom: 15px;">
+                <button id="marketingBtn" class="btn btn-primary btn-block" onclick="handleSubscribe()">Obtener Código</button>
+                <p style="font-size: 0.7rem; color: #999; margin-top: 10px;">No enviamos spam. Promesa.</p>
+            </div>
         </div>
     </div>
 
@@ -1213,9 +1331,70 @@
         </div>
     </div>
 
-    <!-- FULL CHECKOUT OVERLAY (UPDATED TO BE A DISTINCT WINDOW) -->
+    <!-- POLICY MODAL -->
+    <div class="modal-base" id="policyModal">
+        <div class="checkout-header" style="position: absolute; top:0; width:100%; border-bottom: none; background: transparent; z-index: 2005;">
+            <div style="margin-left: auto; cursor:pointer; font-weight:bold; color: #888;" onclick="closePolicyModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+        <div class="policy-modal-content">
+            <h2 id="policyTitle" style="text-align:center; margin-bottom: 30px; font-family: var(--font-display);">Título de Política</h2>
+            <div id="policyBody" class="policy-text-body">
+                <!-- Content Injected via JS -->
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="closePolicyModal()">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div class="checkout-modal" id="productDetailModal">
+        <div class="window-container">
+            <div class="checkout-header">
+                <div class="logo" style="font-size: 1.2rem; text-transform: uppercase;">Vista Rápida</div>
+                <div style="cursor:pointer; font-weight:bold; color: var(--text-muted);" onclick="closeProductModal()">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+            <div id="productDetailContent" class="product-detail-grid">
+                <!-- Content Injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- FULL CATALOG OVERLAY -->
+    <div class="checkout-modal" id="catalogModal">
+        <div class="window-container catalog-window">
+            <div class="checkout-header">
+                <div class="logo" style="font-size: 1.5rem;">Catálogo Completo</div>
+                <div style="cursor:pointer; font-weight:bold; color: var(--text-muted);" onclick="closeCatalogModal()">
+                    <i class="fa-solid fa-xmark"></i> Cerrar
+                </div>
+            </div>
+            <div style="padding: 40px; overflow-y: auto; background: #fafafa; flex: 1;">
+                <p style="text-align: center; color: #666; margin-bottom: 30px;">Explora nuestra colección exclusiva de 12 fragancias icónicas.</p>
+                
+                <!-- Filters Moved Here -->
+                <div class="filter-container">
+                    <button class="filter-btn active" onclick="filterCatalog('all')">Todos</button>
+                    <button class="filter-btn" onclick="filterCatalog('fresco')">Frescos & Cítricos</button>
+                    <button class="filter-btn" onclick="filterCatalog('floral')">Florales</button>
+                    <button class="filter-btn" onclick="filterCatalog('dulce')">Dulces & Gourmand</button>
+                    <button class="filter-btn" onclick="filterCatalog('amaderado')">Amaderados & Especiados</button>
+                </div>
+
+                <div id="full-catalog-grid" class="product-grid">
+                    <!-- Items Injected Here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FULL CHECKOUT OVERLAY -->
     <div class="checkout-modal" id="checkoutModal">
-        <div class="checkout-window">
+        <div class="window-container">
             <div class="checkout-header">
                 <div class="logo" style="font-size: 1.5rem;">La Estela</div>
                 <div style="cursor:pointer; font-weight:bold; color: var(--text-muted);" onclick="returnToCart()">
@@ -1312,6 +1491,11 @@
                             <span>Subtotal</span>
                             <span id="checkoutSubtotal" style="color: #333; font-weight: 700;">$0.00</span>
                         </div>
+                        <!-- Checkout Discount Row -->
+                        <div class="cart-summary-row" id="checkoutDiscountRow" style="display: none; color: #4CAF50;">
+                            <span>Descuento (10%)</span>
+                            <span id="checkoutDiscountAmount">-$0.00</span>
+                        </div>
                         <div class="cart-summary-row" style="color: #555;">
                             <span>Envío</span>
                             <span id="checkoutShipping" style="font-size: 0.9rem;">Calculando...</span>
@@ -1354,11 +1538,137 @@
     <div id="toast"><i class="fa-solid fa-check"></i> <span id="toast-msg">Producto añadido al carrito</span></div>
 
     <script>
+        // --- Product Database with Full Descriptions ---
+        const productsDB = [
+            {
+                id: 1,
+                name: "Afternoon Swim",
+                brand: "Louis Vuitton",
+                category: "Cítrico",
+                price: 5600.00,
+                img: "https://fimgs.net/mdimg/perfume-thumbs/375x500.53947.2x.avif",
+                desc: "Una inmersión en un océano de sensaciones. Afternoon Swim encarna la pasión por los cítricos frescos, con notas vibrantes de naranja de Sicilia, bergamota y mandarina. Una fragancia llena de energía que captura la sensación de las olas rompiendo en un día de verano sin fin.",
+                houseInfo: "Fundada en 1854, Louis Vuitton es sinónimo del arte de viajar. Su colección de alta perfumería, creada por el maestro perfumista Jacques Cavallier Belletrud en Grasse, busca capturar emociones puras y destinos lejanos en cada frasco."
+            },
+            {
+                id: 2,
+                name: "Althaïr",
+                brand: "Parfums de Marly",
+                category: "Vainilla Cálida",
+                price: 7000.00,
+                img: "https://fimgs.net/mdimg/perfume-thumbs/375x500.84109.2x.avif",
+                desc: "Una oda moderna y majestuosa a la vainilla Bourbon. Althaïr combina la calidez envolvente de la vainilla con toques de cítricos, especias y maderas nobles. Es una fragancia opulenta, adictiva y elegante, diseñada para dejar una estela inolvidable de sofisticación.",
+                houseInfo: "Parfums de Marly revive el esplendor del siglo XVIII, la edad de oro de la perfumería francesa. Inspirada en la corte de Luis XV y su pasión por los caballos y las fragancias, la casa combina tradición real con audacia contemporánea."
+            },
+            {
+                id: 3,
+                name: "Naxos",
+                brand: "Xerjoff",
+                category: "Aromático Dulce",
+                price: 5200.00,
+                img: "https://fimgs.net/mdimg/perfume-thumbs/375x500.30529.2x.avif",
+                desc: "Naxos celebra la profundidad y sensualidad de Sicilia con un corazón rico en tabaco y miel, equilibrado por cítricos frescos y lavanda. Es una fragancia que evoca la herencia italiana, el sol mediterráneo y un lujo clásico que trasciende las modas.",
+                houseInfo: "Xerjoff es una casa de lujo italiana fundada en Turín, conocida por combinar los ingredientes más raros y exquisitos con un diseño artístico impecable. Cada botella es una pieza de colección que fusiona la artesanía del viejo mundo con la estética moderna."
+            },
+            {
+                id: 4,
+                name: "Delina",
+                brand: "Parfums de Marly",
+                category: "Floral",
+                price: 7500.00,
+                img: "https://fimgs.net/mdimg/perfume-thumbs/375x500.43871.2x.avif",
+                desc: "Un bouquet floral esculpido alrededor de la rosa turca, con facetas de lirio de los valles y peonía. Notas frutales de lichi y ruibarbo añaden una frescura chispeante, mientras que el fondo de vainilla y almizcle aporta una sensualidad suave. La quintaesencia de la feminidad moderna.",
+                houseInfo: "Parfums de Marly revive el esplendor del siglo XVIII, la edad de oro de la perfumería francesa. Inspirada en la corte de Luis XV y su pasión por los caballos y las fragancias, la casa combina tradición real con audacia contemporánea."
+            },
+            {
+                id: 5,
+                name: "Angels' Share",
+                brand: "Kilian",
+                category: "Gourmand Licoroso",
+                price: 4900.00,
+                img: "https://fimgs.net/mdimg/perfume-thumbs/375x500.62615.2x.avif",
+                desc: "Inspirado en la 'parte de los ángeles', la evaporación del licor en las barricas de roble. Esta fragancia abre con aceite de cognac, sobre una mezcla absoluta de roble, canela y haba tonka. Un aroma cálido, embriagador y profundamente personal, como un buen licor envejecido.",
+                houseInfo: "Kilian Hennessy, heredero de la famosa dinastía del cognac, lanzó su marca con la visión de devolver el perfume a su pedestal de lujo extremo. Sus creaciones son conocidas por su sofisticación, sus envases recargables y su narrativa 'eco-luxe'."
+            },
+            {
+                id: 6,
+                name: "Tuxedo",
+                brand: "Yves Saint Laurent",
+                category: "Especiado Ambarado",
+                price: 7000.00,
+                img: "https://fimgs.net/mdimg/perfume-thumbs/375x500.32269.2x.avif",
+                desc: "La elegancia andrógina en una botella. Tuxedo reinterpreta el pachulí clásico con un toque ahumado y especiado de pimienta negra y cardamomo. Es oscuro, mate y misterioso, capturando la esencia del icónico esmoquin creado por Monsieur Saint Laurent.",
+                houseInfo: "La colección Le Vestiaire des Parfums de YSL traduce las piezas icónicas del guardarropa del diseñador en aromas. Representa el espíritu de la alta costura parisina: audaz, libre y eternamente elegante."
+            },
+            {
+                id: 7,
+                name: "Baccarat Rouge 540",
+                brand: "Maison Francis Kurkdjian",
+                category: "Ámbar Floral",
+                price: 8200.00,
+                img: "https://fimgs.net/mdimg/perfume-thumbs/375x500.33519.2x.avif",
+                desc: "Una alquimia poética y luminosa. Las notas aéreas de jazmín y el resplandor del azafrán transportan las facetas minerales del ámbar gris y los tonos amaderados del cedro recién cortado. Una firma olfativa gráfica y condensada al extremo.",
+                houseInfo: "Francis Kurkdjian es uno de los perfumistas más aclamados del mundo. Su Maison, fundada en 2009, se concibe como un armario olfativo de emociones, donde la perfección técnica se encuentra con una creatividad artística sin límites."
+            },
+            {
+                id: 8,
+                name: "Santal 33",
+                brand: "Le Labo",
+                category: "Amaderado",
+                price: 6100.00,
+                img: "https://fimgs.net/mdimg/perfume-thumbs/375x500.12201.2x.avif",
+                desc: "Un perfume que captura el espíritu del oeste americano y la libertad personal. Con cardamomo, iris, violeta y ambroxan que crepitan en la fórmula y aportan a este sándalo ahumado su firma unisex, adictiva y reconfortante.",
+                houseInfo: "Le Labo nació en Grasse pero se crió en Nueva York. Conocida por su estética industrial y su filosofía 'slow perfume', la marca se centra en la artesanía del alma, creando aromas con personalidad y rechazando el marketing tradicional."
+            },
+            {
+                id: 9,
+                name: "Aventus",
+                brand: "Creed",
+                category: "Chipre Frutal",
+                price: 9500.00,
+                img: "https://fimgs.net/mdimg/perfume-thumbs/375x500.9828.2x.avif",
+                desc: "La fragancia del éxito. Aventus celebra la fuerza, la visión y el éxito, inspirado en la vida dramática de un emperador histórico. Abre con notas explosivas de piña y bergamota, seguidas de un corazón de abedul y pachulí, sobre una base rica de musgo de roble y vainilla.",
+                houseInfo: "Fundada en 1760 en Londres y luego trasladada a París, House of Creed ha servido a casas reales durante más de 250 años. Es una de las pocas casas que aún utiliza técnicas de infusión antiguas para capturar la esencia cruda de materiales naturales raros."
+            },
+            {
+                id: 10,
+                name: "Oud Wood",
+                brand: "Tom Ford",
+                category: "Amaderado Especiado",
+                price: 6800.00,
+                img: "https://fimgs.net/mdimg/perfume-thumbs/375x500.1826.2x.avif",
+                desc: "Raro, exótico y distintivo. Uno de los ingredientes más preciosos del arsenal del perfumista, la madera de oud, se quema en los templos de Bután. El exótico palo de rosa y el cardamomo dan paso a una mezcla ahumada de oud, sándalo y vetiver.",
+                houseInfo: "Tom Ford Beauty es la máxima expresión del glamour moderno. Sus fragancias Private Blend son su laboratorio de aromas personal, donde crea fragancias originales y sin restricciones, diseñadas para los verdaderos conocedores."
+            },
+            {
+                id: 11,
+                name: "Ombre Nomade",
+                brand: "Louis Vuitton",
+                category: "Ámbar Amaderado",
+                price: 8900.00,
+                img: "https://fimgs.net/mdimg/perfume-thumbs/375x500.49755.2x.avif",
+                desc: "Diseñado para los amantes de las esencias raras, Ombre Nomade concentra esa sensación de infinito en uno de los ingredientes más míticos de la perfumería: la madera de oud. Un material rebelde y embriagador, con toques de benjuí y frambuesa.",
+                houseInfo: "Fundada en 1854, Louis Vuitton es sinónimo del arte de viajar. Su colección de alta perfumería, creada por el maestro perfumista Jacques Cavallier Belletrud en Grasse, busca capturar emociones puras y destinos lejanos en cada frasco."
+            },
+            {
+                id: 12,
+                name: "Lost Cherry",
+                brand: "Tom Ford",
+                category: "Ámbar Floral",
+                price: 7200.00,
+                img: "https://fimgs.net/mdimg/perfume-thumbs/375x500.51966.2x.avif",
+                desc: "Lost Cherry es un viaje con cuerpo hacia lo prohibido; un aroma contrastante que revela una dicotomía tentadora de brillo juguetón, similar a un caramelo en el exterior y una carne deliciosa en el interior. Notas de cereza negra, almendra amarga y licor.",
+                houseInfo: "Tom Ford Beauty es la máxima expresión del glamour moderno. Sus fragancias Private Blend son su laboratorio de aromas personal, donde crea fragancias originales y sin restricciones, diseñadas para los verdaderos conocedores."
+            }
+        ];
+
         // --- Shopping Cart Logic ---
         let cart = [];
-        let currentUser = null; // Store user info here
-        const FREE_SHIPPING_THRESHOLD = 500;
-        const STANDARD_SHIPPING_COST = 50.00;
+        let currentUser = null; 
+        let discountApplied = false; // State to track discount
+        
+        const FREE_SHIPPING_THRESHOLD = 1500; 
+        const STANDARD_SHIPPING_COST = 150.00;
         
         // DOM Elements
         const cartOverlay = document.getElementById('cartOverlay');
@@ -1381,13 +1691,271 @@
         const simTitle = document.getElementById('simTitle');
         const simDesc = document.getElementById('simDesc');
 
+        // Policy Elements
+        const policyModal = document.getElementById('policyModal');
+        const policyTitle = document.getElementById('policyTitle');
+        const policyBody = document.getElementById('policyBody');
+
+        const policiesData = {
+            shipping: {
+                title: "Política de Envíos y Devoluciones",
+                content: `
+                    <h4>1. Cobertura y Tiempos de Entrega</h4>
+                    <p>En La Estela, realizamos envíos a toda la República Mexicana. Nuestros tiempos de entrega estimados son:</p>
+                    <ul>
+                        <li><strong>Envío Estándar:</strong> 3 a 5 días hábiles a partir de la confirmación del pedido.</li>
+                        <li><strong>Envío Express:</strong> 1 a 2 días hábiles (disponible solo en zonas seleccionadas).</li>
+                    </ul>
+                    <p>Los pedidos se procesan de lunes a viernes. Los pedidos realizados los fines de semana o días festivos se procesarán al siguiente día hábil.</p>
+                    
+                    <h4>2. Costos de Envío</h4>
+                    <p>El costo de envío estándar es de $150.00 MXN para pedidos menores a $1,500.00 MXN. Para pedidos superiores a esta cantidad, el envío es <strong>GRATUITO</strong>.</p>
+                    
+                    <h4>3. Política de Devoluciones</h4>
+                    <p>Debido a la naturaleza de nuestros productos (artículos de higiene y belleza), <strong>no aceptamos devoluciones ni cambios de perfumes que hayan sido abiertos, usados o cuyo celofán protector haya sido retirado</strong>, salvo en casos de defectos de fabricación.</p>
+                    <p>Para ser elegible para una devolución:</p>
+                    <ul>
+                        <li>El artículo debe estar sin usar y en las mismas condiciones en que lo recibiste.</li>
+                        <li>Debe estar en su embalaje original y sellado.</li>
+                        <li>Debes solicitar la devolución dentro de las 48 horas posteriores a la recepción del paquete.</li>
+                    </ul>
+                    
+                    <h4>4. Productos Dañados o Incorrectos</h4>
+                    <p>Si recibiste un producto dañado durante el envío o un artículo incorrecto, por favor contáctanos inmediatamente a soporte@laestela.mx con tu número de orden y fotografías del producto y empaque.</p>
+                `
+            },
+            terms: {
+                title: "Términos y Condiciones",
+                content: `
+                    <h4>1. Aceptación de los Términos</h4>
+                    <p>Al acceder y utilizar el sitio web de La Estela, aceptas estar sujeto a estos Términos y Condiciones. Si no estás de acuerdo con alguna parte de estos términos, te pedimos que no utilices nuestros servicios.</p>
+                    
+                    <h4>2. Uso del Sitio</h4>
+                    <p>Este sitio está destinado a personas mayores de 18 años. Al realizar una compra, declaras que eres mayor de edad y tienes la capacidad legal para celebrar contratos vinculantes.</p>
+                    
+                    <h4>3. Productos y Precios</h4>
+                    <p>Nos esforzamos por mostrar con precisión los colores, características y detalles de nuestros productos. Sin embargo, no garantizamos que la visualización en tu pantalla sea exacta. Todos los precios están expresados en Pesos Mexicanos (MXN) e incluyen IVA, pero no incluyen gastos de envío a menos que se indique lo contrario.</p>
+                    
+                    <h4>4. Propiedad Intelectual</h4>
+                    <p>Todo el contenido de este sitio, incluyendo logotipos, imágenes, textos y diseño, es propiedad de La Estela o de sus licenciantes y está protegido por las leyes de propiedad intelectual de México e internacionales.</p>
+                    
+                    <h4>5. Modificaciones</h4>
+                    <p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios entrarán en vigor inmediatamente después de su publicación en el sitio web.</p>
+                `
+            },
+            privacy: {
+                title: "Aviso de Privacidad",
+                content: `
+                    <h4>1. Responsable de sus Datos</h4>
+                    <p>En cumplimiento con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP), La Estela Boutique informa que es responsable de recabar sus datos personales, del uso que se le dé a los mismos y de su protección.</p>
+                    
+                    <h4>2. Datos Recabados</h4>
+                    <p>Para procesar sus pedidos y brindarle un mejor servicio, podemos recabar los siguientes datos: Nombre completo, dirección de envío y facturación, correo electrónico, número de teléfono y datos de pago (procesados de forma segura y encriptada).</p>
+                    
+                    <h4>3. Finalidad del Tratamiento</h4>
+                    <p>Sus datos personales serán utilizados para las siguientes finalidades:</p>
+                    <ul>
+                        <li>Procesar, enviar y entregar sus pedidos.</li>
+                        <li>Emitir facturas fiscales si así lo requiere.</li>
+                        <li>Atención al cliente y seguimiento post-venta.</li>
+                        <li>Envío de promociones y novedades (solo si usted lo autoriza explícitamente).</li>
+                    </ul>
+                    
+                    <h4>4. Derechos ARCO</h4>
+                    <p>Usted tiene derecho a Acceder, Rectificar, Cancelar u Oponerse al tratamiento de sus datos personales (Derechos ARCO). Para ejercer estos derechos, envíe una solicitud a privacidad@laestela.mx.</p>
+                    
+                    <h4>5. Seguridad</h4>
+                    <p>Implementamos medidas de seguridad administrativas, técnicas y físicas para proteger sus datos personales contra daño, pérdida, alteración, destrucción o el uso, acceso o tratamiento no autorizado.</p>
+                `
+            }
+        };
+
+        // --- Filter Logic (Now targeting the Modal Grid) ---
+        function filterCatalog(category) {
+            // Update active state
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.getAttribute('onclick').includes(`'${category}'`)) {
+                    btn.classList.add('active');
+                }
+            });
+
+            const catalogGrid = document.getElementById('full-catalog-grid');
+            let filtered = [];
+
+            if (category === 'all') {
+                filtered = productsDB; // Show ALL in catalog modal
+            } else {
+                filtered = productsDB.filter(p => {
+                    const cat = p.category.toLowerCase();
+                    if (category === 'fresco') return cat.includes('cítrico') || cat.includes('frutal') || cat.includes('fresco');
+                    if (category === 'floral') return cat.includes('floral');
+                    if (category === 'dulce') return cat.includes('vainilla') || cat.includes('dulce') || cat.includes('gourmand') || cat.includes('cherry');
+                    if (category === 'amaderado') return cat.includes('amaderado') || cat.includes('especiado') || cat.includes('ámbar') || cat.includes('tabaco');
+                    return false;
+                });
+            }
+            
+            catalogGrid.innerHTML = filtered.map(product => renderProductCard(product)).join('');
+        }
+
+        // --- Product Rendering Logic ---
+        function renderProductCard(product) {
+            const priceFormatted = product.price.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
+            return `
+                <div class="product-card">
+                    <div class="prod-img-container" onclick="openProductDetail(${product.id})">
+                        <img src="${product.img}" alt="${product.name}" onerror="this.src='https://placehold.co/375x500?text=${encodeURIComponent(product.name)}'">
+                        <button class="add-btn" onclick="event.stopPropagation(); addToCart(${product.id})">Añadir al Carrito</button>
+                    </div>
+                    <div class="prod-info">
+                        <span class="prod-category">${product.category} / ${product.brand}</span>
+                        <h3>${product.name}</h3>
+                        <div class="prod-price">${priceFormatted}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProducts() {
+            // Render first 6 for main page
+            const favoritesGrid = document.getElementById('favorites-grid');
+            const favorites = productsDB.slice(0, 6);
+            favoritesGrid.innerHTML = favorites.map(product => renderProductCard(product)).join('');
+        }
+
+        function openCatalogModal() {
+            // Reset to 'all' when opening
+            filterCatalog('all');
+            
+            const modal = document.getElementById('catalogModal');
+            modal.style.display = 'flex';
+            document.body.classList.add('modal-open');
+        }
+
+        function closeCatalogModal() {
+            const modal = document.getElementById('catalogModal');
+            modal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+
+        // --- Product Detail Logic ---
+        function openProductDetail(productId) {
+            const product = productsDB.find(p => p.id === productId);
+            if(!product) return;
+
+            const priceFormatted = product.price.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
+            const container = document.getElementById('productDetailContent');
+            
+            container.innerHTML = `
+                <div class="pd-image-col">
+                    <img src="${product.img}" alt="${product.name}" onerror="this.src='https://placehold.co/500x700?text=${encodeURIComponent(product.name)}'">
+                </div>
+                <div class="pd-info-col">
+                    <div class="pd-brand">${product.brand}</div>
+                    <h2 class="pd-title">${product.name}</h2>
+                    <div class="pd-price">${priceFormatted}</div>
+                    <p class="pd-description">${product.desc}</p>
+                    
+                    <button class="btn btn-primary btn-block" onclick="addToCart(${product.id}); closeProductModal();">Añadir al Carrito</button>
+                    
+                    <div class="house-info-box" style="margin-top: 40px;">
+                        <h4>Sobre ${product.brand}</h4>
+                        <p>${product.houseInfo}</p>
+                    </div>
+                </div>
+            `;
+
+            const modal = document.getElementById('productDetailModal');
+            modal.style.display = 'flex';
+            document.body.classList.add('modal-open');
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productDetailModal');
+            modal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+
+        function openPolicy(type) {
+            const policy = policiesData[type];
+            if (policy) {
+                policyTitle.innerText = policy.title;
+                policyBody.innerHTML = policy.content;
+                
+                const modal = document.getElementById('policyModal');
+                modal.style.display = 'flex';
+                document.body.classList.add('modal-open');
+            }
+        }
+
+        function closePolicyModal() {
+            document.getElementById('policyModal').style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+
+        function closeMarketingModal() {
+            document.getElementById('marketingModal').style.display = 'none';
+        }
+
+        // --- Marketing & Discount Logic ---
+        function handleSubscribe() {
+            const emailInput = document.getElementById('marketingEmail');
+            const email = emailInput.value;
+            const btn = document.getElementById('marketingBtn');
+            
+            if (!email.includes('@') || email.length < 5) {
+                alert('Por favor ingresa un correo válido.');
+                return;
+            }
+
+            // Simulate API Call
+            btn.innerText = "Procesando...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // Success State
+                btn.innerText = "¡Listo! Descuento Activado";
+                btn.style.backgroundColor = "#4CAF50";
+                btn.style.borderColor = "#4CAF50";
+                
+                // Apply Discount Logic
+                discountApplied = true;
+                localStorage.setItem('laEstelaDiscount', 'true'); // Persist
+                sessionStorage.setItem('marketingSeen', 'true');
+                
+                // Update Cart UI immediately to reflect discount if open
+                updateCartUI();
+
+                // Show Success Toast
+                const toast = document.getElementById("toast");
+                document.getElementById("toast-msg").innerText = "Cupón de 10% activado";
+                toast.className = "show";
+                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+
+                // Close Modal after delay
+                setTimeout(() => {
+                    closeMarketingModal();
+                }, 1500);
+            }, 1500);
+        }
+
         function initApp() {
+            // Render Products First
+            renderProducts();
+
             // Cart Init
             const storedCart = localStorage.getItem('laEstelaCart');
             if (storedCart) {
                 cart = JSON.parse(storedCart);
-                updateCartUI();
             }
+            
+            // Check stored discount
+            if (localStorage.getItem('laEstelaDiscount') === 'true') {
+                discountApplied = true;
+            }
+            
+            updateCartUI(); // Update UI with initial state
             
             // User Init
             const storedUser = localStorage.getItem('laEstelaUser');
@@ -1399,6 +1967,13 @@
             // Check Cookies
             if (!localStorage.getItem('cookieConsent')) {
                 document.getElementById('cookieBanner').style.display = 'block';
+            }
+
+            // Marketing Pop-up Logic (Trigger after 5 seconds if not seen)
+            if(!sessionStorage.getItem('marketingSeen') && !discountApplied) {
+                setTimeout(() => {
+                    document.getElementById('marketingModal').style.display = 'flex';
+                }, 5000);
             }
         }
 
@@ -1517,26 +2092,30 @@
         }
 
         // --- Cart Logic ---
-        function addToCart(name, price, image) {
-            const existingItem = cart.find(item => item.name === name);
+        function addToCart(productId) {
+            const product = productsDB.find(p => p.id === productId);
+            if(!product) return;
+
+            const existingItem = cart.find(item => item.id === productId);
             if (existingItem) {
                 existingItem.qty++;
             } else {
                 cart.push({
-                    id: Date.now(),
-                    name: name,
-                    price: price,
-                    image: image || 'https://via.placeholder.com/80x100?text=No+Img',
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.img,
                     qty: 1
                 });
             }
             saveCart();
             updateCartUI();
+            // Removed closeCatalogModal() as we removed that modal in favor of main page filtering
             openCartDrawer();
             
             const toast = document.getElementById("toast");
             const toastMsg = document.getElementById("toast-msg");
-            toastMsg.innerText = name + " añadido";
+            toastMsg.innerText = product.name + " añadido";
             toast.className = "show";
             setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
         }
@@ -1564,7 +2143,7 @@
         }
 
         function updateCartUI() {
-            let total = 0;
+            let subtotal = 0;
             let count = 0;
             
             drawerItems.innerHTML = '';
@@ -1576,16 +2155,20 @@
                 document.getElementById('drawerFooter').style.display = 'block';
                 
                 cart.forEach(item => {
-                    total += item.price * item.qty;
+                    subtotal += item.price * item.qty;
                     count += item.qty;
                     
                     const el = document.createElement('div');
                     el.className = 'cart-item';
+                    
+                    const priceFormatted = item.price.toLocaleString('es-MX', { minimumFractionDigits: 2 });
+                    const totalItemFormatted = (item.price * item.qty).toLocaleString('es-MX', { minimumFractionDigits: 2 });
+
                     el.innerHTML = `
                         <img src="${item.image}" class="cart-item-img" alt="${item.name}">
                         <div class="cart-item-info">
                             <span class="cart-item-name">${item.name}</span>
-                            <span class="cart-item-price">$${item.price.toFixed(2)}</span>
+                            <span class="cart-item-price">$${priceFormatted}</span>
                             <div class="qty-selector">
                                 <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
                                 <input type="number" class="qty-input" value="${item.qty}" readonly>
@@ -1593,28 +2176,43 @@
                             </div>
                             <span class="cart-item-remove" onclick="removeFromCart(${item.id})">Eliminar</span>
                         </div>
-                        <div style="font-weight:700;">$${(item.price * item.qty).toFixed(2)}</div>
+                        <div style="font-weight:700;">$${totalItemFormatted}</div>
                     `;
                     drawerItems.appendChild(el);
                 });
             }
 
-            drawerTotal.innerText = '$' + total.toFixed(2);
+            // Discount Calculation
+            let discountAmount = 0;
+            const discountRow = document.getElementById('drawerDiscountRow');
+            const discountAmountEl = document.getElementById('drawerDiscountAmount');
+
+            if (discountApplied && subtotal > 0) {
+                discountAmount = subtotal * 0.10; // 10%
+                discountRow.style.display = 'flex';
+                discountAmountEl.innerText = '-$' + discountAmount.toLocaleString('es-MX', { minimumFractionDigits: 2 });
+            } else {
+                discountRow.style.display = 'none';
+            }
+
+            let total = subtotal - discountAmount;
+
+            drawerTotal.innerText = '$' + total.toLocaleString('es-MX', { minimumFractionDigits: 2 });
             drawerCount.innerText = count;
             cartCountBadge.innerText = count;
 
-            // Free Shipping Logic
+            // Free Shipping Logic (Based on Subtotal)
             const shippingMsg = document.getElementById('shippingMsg');
             const shippingProgress = document.getElementById('shippingProgress');
             
-            if (total >= FREE_SHIPPING_THRESHOLD) {
+            if (subtotal >= FREE_SHIPPING_THRESHOLD) {
                 shippingMsg.innerHTML = '¡Felicidades! Tienes <strong>Envío Gratis</strong>';
                 shippingProgress.style.width = '100%';
                 shippingProgress.style.background = '#4CAF50'; 
             } else {
-                const remaining = FREE_SHIPPING_THRESHOLD - total;
-                const percent = (total / FREE_SHIPPING_THRESHOLD) * 100;
-                shippingMsg.innerHTML = `Te faltan <strong>$${remaining.toFixed(2)}</strong> para envío gratis`;
+                const remaining = FREE_SHIPPING_THRESHOLD - subtotal;
+                const percent = (subtotal / FREE_SHIPPING_THRESHOLD) * 100;
+                shippingMsg.innerHTML = `Te faltan <strong>$${remaining.toLocaleString('es-MX', { minimumFractionDigits: 2 })}</strong> para envío gratis`;
                 shippingProgress.style.width = percent + '%';
                 shippingProgress.style.background = 'var(--text-main)';
             }
@@ -1661,19 +2259,33 @@
             let subtotal = 0;
             cart.forEach(item => subtotal += item.price * item.qty);
             
+            // Discount Calculation
+            let discountAmount = 0;
+            const checkoutDiscountRow = document.getElementById('checkoutDiscountRow');
+            const checkoutDiscountAmount = document.getElementById('checkoutDiscountAmount');
+
+            if (discountApplied && subtotal > 0) {
+                discountAmount = subtotal * 0.10;
+                checkoutDiscountRow.style.display = 'flex';
+                checkoutDiscountAmount.innerText = '-$' + discountAmount.toLocaleString('es-MX', { minimumFractionDigits: 2 });
+            } else {
+                checkoutDiscountRow.style.display = 'none';
+            }
+
             let shippingCost = 0;
             let shippingText = "Gratis";
             
+            // Free shipping based on original subtotal (usually standard practice)
             if (subtotal < FREE_SHIPPING_THRESHOLD) {
                 shippingCost = STANDARD_SHIPPING_COST;
-                shippingText = `$${shippingCost.toFixed(2)}`;
+                shippingText = `$${shippingCost.toLocaleString('es-MX', { minimumFractionDigits: 2 })}`;
             }
 
-            let total = subtotal + shippingCost;
+            let total = subtotal - discountAmount + shippingCost;
             
-            checkoutSubtotal.innerText = `$${subtotal.toFixed(2)}`;
+            checkoutSubtotal.innerText = `$${subtotal.toLocaleString('es-MX', { minimumFractionDigits: 2 })}`;
             checkoutShipping.innerText = shippingText;
-            checkoutTotal.innerText = `$${total.toFixed(2)}`;
+            checkoutTotal.innerText = `$${total.toLocaleString('es-MX', { minimumFractionDigits: 2 })}`;
             
             closeCartDrawer();
             checkoutModal.style.display = 'flex';
@@ -1727,9 +2339,7 @@
             document.getElementById('cookieBanner').style.display = 'none';
         }
 
-        initApp();
-
-async function consultGemini() {
+        async function consultGemini() {
             const input = document.getElementById('aiInput').value;
             if(!input.trim()) return;
             
@@ -1763,6 +2373,41 @@ async function consultGemini() {
                 resultDiv.innerHTML = recommendation;
                 resultDiv.classList.add('visible');
             }, 2000);
+        }
+
+        // Search functions
+        function openSearch() {
+            document.getElementById('searchOverlay').style.display = 'flex';
+            document.body.classList.add('modal-open');
+            document.getElementById('searchInput').focus();
+        }
+
+        function closeSearch() {
+            document.getElementById('searchOverlay').style.display = 'none';
+            document.body.classList.remove('modal-open');
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchResults').innerHTML = '';
+        }
+
+        function handleSearch(query) {
+            const resultsContainer = document.getElementById('searchResults');
+            if (!query || query.length < 2) {
+                resultsContainer.innerHTML = '';
+                return;
+            }
+            
+            const lowerQuery = query.toLowerCase();
+            const filtered = productsDB.filter(p => 
+                p.name.toLowerCase().includes(lowerQuery) || 
+                p.brand.toLowerCase().includes(lowerQuery) ||
+                p.category.toLowerCase().includes(lowerQuery)
+            );
+
+            if (filtered.length === 0) {
+                resultsContainer.innerHTML = '<p style="text-align:center; width:100%; color:#888;">No se encontraron resultados.</p>';
+            } else {
+                resultsContainer.innerHTML = filtered.map(product => renderProductCard(product)).join('');
+            }
         }
 
         // Init
