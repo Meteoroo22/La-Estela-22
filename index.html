@@ -1171,10 +1171,10 @@
     <section class="newsletter">
         <div class="container">
             <h2>Únete al Club Privado</h2>
-            <p>Recibe muestras exclusivas, lanzamientos anticipados y consejos de nuestros perfumistas.</p>
+            <p>Obtén 10% OFF en tu primera compra, muestras exclusivas y consejos de nuestros perfumistas.</p>
             <div class="input-group">
-                <input type="email" placeholder="Tu correo electrónico">
-                <button>SUSCRIBIRSE</button>
+                <input type="email" id="newsletterBodyEmail" placeholder="Tu correo electrónico">
+                <button id="newsletterBodyBtn" onclick="handleBodySubscribe()">SUSCRIBIRSE</button>
             </div>
         </div>
     </section>
@@ -1898,7 +1898,7 @@
             document.getElementById('marketingModal').style.display = 'none';
         }
 
-        // --- Marketing & Discount Logic ---
+        // --- Marketing & Discount Logic (Popup) ---
         function handleSubscribe() {
             const emailInput = document.getElementById('marketingEmail');
             const email = emailInput.value;
@@ -1919,25 +1919,64 @@
                 btn.style.backgroundColor = "#4CAF50";
                 btn.style.borderColor = "#4CAF50";
                 
-                // Apply Discount Logic
-                discountApplied = true;
-                localStorage.setItem('laEstelaDiscount', 'true'); // Persist
-                sessionStorage.setItem('marketingSeen', 'true');
-                
-                // Update Cart UI immediately to reflect discount if open
-                updateCartUI();
-
-                // Show Success Toast
-                const toast = document.getElementById("toast");
-                document.getElementById("toast-msg").innerText = "Cupón de 10% activado";
-                toast.className = "show";
-                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+                activateDiscount();
 
                 // Close Modal after delay
                 setTimeout(() => {
                     closeMarketingModal();
                 }, 1500);
             }, 1500);
+        }
+
+        // --- Marketing Logic (Body Newsletter) ---
+        function handleBodySubscribe() {
+            const emailInput = document.getElementById('newsletterBodyEmail');
+            const btn = document.getElementById('newsletterBodyBtn');
+            const email = emailInput.value;
+
+            if (!email.includes('@') || email.length < 5) {
+                alert('Por favor ingresa un correo válido.');
+                return;
+            }
+
+            const originalText = btn.innerText;
+            btn.innerText = "Suscribiendo...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerText = "¡Bienvenido!";
+                btn.style.backgroundColor = "#4CAF50";
+                btn.style.color = "white";
+                btn.style.borderColor = "#4CAF50";
+                emailInput.value = ""; // Clear input
+
+                activateDiscount();
+
+                // Optional: Reset button after a few seconds
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                    btn.style.backgroundColor = ""; 
+                    btn.style.color = "";
+                    btn.style.borderColor = ""; 
+                }, 3000);
+            }, 1500);
+        }
+
+        function activateDiscount() {
+            // Apply Discount Logic
+            discountApplied = true;
+            localStorage.setItem('laEstelaDiscount', 'true'); // Persist
+            sessionStorage.setItem('marketingSeen', 'true'); // Don't show popup again
+            
+            // Update Cart UI immediately to reflect discount if open
+            updateCartUI();
+
+            // Show Success Toast
+            const toast = document.getElementById("toast");
+            document.getElementById("toast-msg").innerText = "Suscripción exitosa. Cupón de 10% activado";
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
         }
 
         function initApp() {
